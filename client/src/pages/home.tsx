@@ -1,0 +1,201 @@
+import { useState } from "react";
+import { Link } from "wouter";
+import Navigation from "@/components/navigation";
+import HeroSection from "@/components/hero-section";
+import ProfileForm from "@/components/profile-form";
+import SuccessStories from "@/components/success-stories";
+import { Button } from "@/components/ui/button";
+import { Check, FileText, Shield, Users, DollarSign, Clock, Target, Info } from "lucide-react";
+
+export default function Home() {
+  const [showProfileForm, setShowProfileForm] = useState(false);
+
+  const scrollToProfileForm = () => {
+    setShowProfileForm(true);
+    setTimeout(() => {
+      document.getElementById('profile-section')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <Navigation />
+      
+      <HeroSection onStartAnalysis={scrollToProfileForm} />
+
+      {/* Profile Creation Section */}
+      {showProfileForm && (
+        <section id="profile-section" className="py-16 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-slate-800 mb-4">Build Your Academic Profile</h2>
+              <p className="text-lg text-slate-600">Help our AI understand your unique background to find the best opportunities</p>
+            </div>
+            <ProfileForm />
+          </div>
+        </section>
+      )}
+
+      {/* Features Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-800 mb-4">How ScholarshipAI Works</h2>
+            <p className="text-lg text-slate-600">Three simple steps to unlock your educational funding</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center p-6">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-slate-800 mb-3">Create Your Profile</h3>
+              <p className="text-slate-600">Share your academic background, skills, and goals to build a comprehensive profile.</p>
+            </div>
+
+            <div className="text-center p-6">
+              <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Target className="w-8 h-8 text-secondary" />
+              </div>
+              <h3 className="text-xl font-semibold text-slate-800 mb-3">AI-Powered Matching</h3>
+              <p className="text-slate-600">Our advanced AI analyzes thousands of scholarships to find your perfect matches.</p>
+            </div>
+
+            <div className="text-center p-6">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <FileText className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-slate-800 mb-3">Get Personalized Guidance</h3>
+              <p className="text-slate-600">Receive tailored application tips, essay guidance, and deadline reminders.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Application Guidance Section */}
+      <section id="guidance" className="py-16 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold text-slate-800 mb-6">AI-Powered Application Guidance</h2>
+              <p className="text-lg text-slate-600 mb-8">
+                Get personalized tips, essay suggestions, and requirement checklists to maximize your chances of success.
+              </p>
+
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <FileText className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-slate-800 mb-2">Essay Writing Assistant</h3>
+                    <p className="text-slate-600">AI-generated prompts and structure suggestions tailored to each scholarship's requirements.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Check className="w-5 h-5 text-secondary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-slate-800 mb-2">Document Checklist</h3>
+                    <p className="text-slate-600">Never miss a requirement with automatically generated checklists for each application.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Shield className="w-5 h-5 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-slate-800 mb-2">Profile Enhancement Tips</h3>
+                    <p className="text-slate-600">Specific suggestions to strengthen your profile and increase eligibility for future opportunities.</p>
+                  </div>
+                </div>
+              </div>
+
+              <Link href="/dashboard">
+                <Button className="mt-8 bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                  Try Guidance Assistant
+                </Button>
+              </Link>
+            </div>
+
+            <div className="relative">
+              <img 
+                src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                alt="Students working on scholarship applications together" 
+                className="rounded-xl shadow-lg w-full h-auto"
+              />
+              
+              <div className="absolute -bottom-6 -right-6 bg-white rounded-lg p-6 shadow-xl max-w-sm">
+                <div className="flex items-start space-x-3">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Info className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-slate-800 mb-1">AI Suggestion</p>
+                    <p className="text-xs text-slate-600">Consider highlighting your volunteer work in renewable energy for the Environmental Innovation Award.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SuccessStories />
+
+      {/* Footer */}
+      <footer className="bg-slate-800 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">SA</span>
+                </div>
+                <h3 className="text-xl font-bold">ScholarshipAI</h3>
+              </div>
+              <p className="text-slate-300 mb-4">Empowering students to discover and secure funding opportunities through intelligent AI matching.</p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Platform</h4>
+              <ul className="space-y-2 text-slate-300">
+                <li><Link href="/" className="hover:text-white transition-colors">How it Works</Link></li>
+                <li><Link href="/#guidance" className="hover:text-white transition-colors">AI Matching</Link></li>
+                <li><Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link></li>
+                <li><a href="#" className="hover:text-white transition-colors">Success Stories</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Resources</h4>
+              <ul className="space-y-2 text-slate-300">
+                <li><a href="#" className="hover:text-white transition-colors">Scholarship Database</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Financial Aid Guide</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Essay Templates</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Support</h4>
+              <ul className="space-y-2 text-slate-300">
+                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-700 mt-8 pt-8 text-center text-slate-300">
+            <p>&copy; 2024 ScholarshipAI. All rights reserved. Empowering students to achieve their educational dreams.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}

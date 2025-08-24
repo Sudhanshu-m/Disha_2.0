@@ -49,9 +49,10 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
 
   const createProfileMutation = useMutation({
     mutationFn: async (data: ProfileFormData) => {
+      const userId = `user-${Date.now()}`; // Generate a unique user ID
       return await apiRequest("POST", "/api/profile", {
         profile: data,
-        userId: "temp-user-id" // In a real app, this would come from authentication
+        userId: userId
       });
     },
     onSuccess: (profile: any) => {
@@ -61,11 +62,11 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
       });
       queryClient.invalidateQueries({ queryKey: ["/api/profile"] });
       
-      // Store profile ID in localStorage for demo purposes
+      // Store profile ID and user ID in localStorage for demo purposes
       localStorage.setItem('currentProfileId', profile.id);
       localStorage.setItem('currentUserId', profile.userId);
       
-      // Generate matches after profile creation
+      // Generate matches after profile creation with the correct profile ID
       generateMatchesMutation.mutate(profile.id);
     },
     onError: (error) => {

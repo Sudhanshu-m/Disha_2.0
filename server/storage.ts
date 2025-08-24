@@ -1,10 +1,10 @@
-import { 
-  users, 
+import {
+  users,
   studentProfiles,
-  scholarships, 
+  scholarships,
   scholarshipMatches,
   applicationGuidance,
-  type User, 
+  type User,
   type InsertUser,
   type StudentProfile,
   type InsertStudentProfile,
@@ -26,6 +26,7 @@ export interface IStorage {
 
   // Student profile methods
   getStudentProfile(userId: string): Promise<StudentProfile | undefined>;
+  getStudentProfileById(profileId: string): Promise<StudentProfile | undefined>;
   createStudentProfile(profile: InsertStudentProfile & { userId: string }): Promise<StudentProfile>;
   updateStudentProfile(id: string, profile: Partial<InsertStudentProfile>): Promise<StudentProfile>;
 
@@ -72,6 +73,11 @@ export class DatabaseStorage implements IStorage {
 
   async getStudentProfile(userId: string): Promise<StudentProfile | undefined> {
     const [profile] = await db.select().from(studentProfiles).where(eq(studentProfiles.userId, userId));
+    return profile || undefined;
+  }
+
+  async getStudentProfileById(profileId: string): Promise<StudentProfile | undefined> {
+    const [profile] = await db.select().from(studentProfiles).where(eq(studentProfiles.id, profileId));
     return profile || undefined;
   }
 

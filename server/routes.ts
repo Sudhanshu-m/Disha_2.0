@@ -10,10 +10,24 @@ import {
 import { generateScholarshipMatches, generateApplicationGuidance } from "./services/openai";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Get student profile
+  // Get student profile by user ID
   app.get("/api/profile/:userId", async (req, res) => {
     try {
       const profile = await storage.getStudentProfile(req.params.userId);
+      if (!profile) {
+        return res.status(404).json({ message: "Profile not found" });
+      }
+      res.json(profile);
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+      res.status(500).json({ message: "Failed to fetch profile" });
+    }
+  });
+
+  // Get student profile by profile ID
+  app.get("/api/profile/id/:profileId", async (req, res) => {
+    try {
+      const profile = await storage.getStudentProfileById(req.params.profileId);
       if (!profile) {
         return res.status(404).json({ message: "Profile not found" });
       }
@@ -105,7 +119,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Profile ID is required" });
       }
 
-      const profile = await storage.getStudentProfile(profileId);
+      const profile = await storage.getStudentProfileById(profileId);
       if (!profile) {
         return res.status(404).json({ message: "Profile not found" });
       }

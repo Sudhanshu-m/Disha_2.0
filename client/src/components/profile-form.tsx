@@ -61,11 +61,11 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
     onSuccess: (response: any) => {
       console.log("Profile created successfully:", response);
       
-      if (!response || !response.id) {
+      if (!response || typeof response !== 'object' || !response.id) {
         console.error("Invalid profile response:", response);
         toast({
           title: "Error",
-          description: "Profile creation failed - invalid response",
+          description: "Profile creation failed - invalid server response format",
           variant: "destructive",
         });
         return;
@@ -134,6 +134,18 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
   });
 
   const onSubmit = async (data: ProfileFormData) => {
+    // Validate required fields
+    if (!data.name || !data.email || !data.educationLevel || !data.fieldOfStudy || 
+        !data.graduationYear || !data.financialNeed || !data.location) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    console.log("Submitting form data:", data);
     createProfileMutation.mutate(data);
   };
 

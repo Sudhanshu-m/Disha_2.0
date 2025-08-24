@@ -14,8 +14,8 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
 
-  // Mock user ID - in a real app, this would come from authentication
-  const userId = "temp-user-id";
+  // Get user ID from localStorage - in a real app, this would come from authentication
+  const userId = localStorage.getItem('currentUserId') || 'temp-user-id';
 
   const { data: profile, isLoading } = useQuery<StudentProfile>({
     queryKey: ['/api/profile', userId],

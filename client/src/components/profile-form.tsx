@@ -54,15 +54,19 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
         userId: "temp-user-id" // In a real app, this would come from authentication
       });
     },
-    onSuccess: () => {
+    onSuccess: (profile: any) => {
       toast({
         title: "Profile Created Successfully",
         description: "Your profile has been saved. Generating scholarship matches...",
       });
       queryClient.invalidateQueries({ queryKey: ["/api/profile"] });
       
+      // Store profile ID in localStorage for demo purposes
+      localStorage.setItem('currentProfileId', profile.id);
+      localStorage.setItem('currentUserId', profile.userId);
+      
       // Generate matches after profile creation
-      generateMatchesMutation.mutate();
+      generateMatchesMutation.mutate(profile.id);
     },
     onError: (error) => {
       toast({
@@ -75,9 +79,9 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
   });
 
   const generateMatchesMutation = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (profileId: string) => {
       return await apiRequest("POST", "/api/matches/generate", {
-        profileId: "temp-profile-id" // This should be the actual profile ID
+        profileId
       });
     },
     onSuccess: () => {

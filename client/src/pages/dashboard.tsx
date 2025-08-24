@@ -22,8 +22,8 @@ export default function Dashboard() {
   const [sortBy, setSortBy] = useState("matchScore");
   const { toast } = useToast();
 
-  // Mock profile ID - in a real app, this would come from authentication
-  const profileId = "temp-profile-id";
+  // Get profile ID from localStorage - in a real app, this would come from authentication
+  const profileId = localStorage.getItem('currentProfileId') || 'demo-profile';
 
   const { data: matches, isLoading } = useQuery<(ScholarshipMatch & { scholarship: Scholarship })[]>({
     queryKey: ['/api/matches', profileId],
@@ -294,10 +294,20 @@ export default function Dashboard() {
               <Card>
                 <CardContent className="p-12 text-center">
                   <h3 className="text-xl font-semibold text-slate-800 mb-4">No matches found</h3>
-                  <p className="text-slate-600 mb-6">We couldn't find any scholarship matches for your profile yet. Try updating your profile or check back later for new opportunities.</p>
+                  <p className="text-slate-600 mb-6">We couldn't find any scholarship matches for your profile yet. Try creating a profile first or generating matches.</p>
                   <div className="flex justify-center space-x-4">
-                    <Button variant="outline">Update Profile</Button>
-                    <Button>Seed Sample Data</Button>
+                    <Button variant="outline" onClick={() => window.location.href = '/profile'}>Create Profile</Button>
+                    <Button onClick={() => {
+                      if (profileId !== 'demo-profile') {
+                        // Generate matches if we have a profile
+                        apiRequest('POST', '/api/matches/generate', { profileId }).then(() => {
+                          queryClient.invalidateQueries({ queryKey: ['/api/matches', profileId] });
+                          toast({ title: 'Matches Generated', description: 'New scholarship matches have been generated!' });
+                        });
+                      } else {
+                        toast({ title: 'Profile Required', description: 'Please create a profile first.', variant: 'destructive' });
+                      }
+                    }}>Generate Matches</Button>
                   </div>
                 </CardContent>
               </Card>

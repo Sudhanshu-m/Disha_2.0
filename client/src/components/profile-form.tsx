@@ -50,24 +50,28 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
   const createProfileMutation = useMutation({
     mutationFn: async (data: ProfileFormData) => {
       const userId = `user-${Date.now()}`; // Generate a unique user ID
-      return await apiRequest("POST", "/api/profile", {
+      const response = await apiRequest("POST", "/api/profile", {
         profile: data,
         userId: userId
       });
+      console.log("Profile creation response:", response);
+      return response;
     },
-    onSuccess: (profile: any) => {
+    onSuccess: (response: any) => {
+      console.log("Profile created successfully:", response);
       toast({
-        title: "Profile Created Successfully",
+        title: "Profile Created Successfully", 
         description: "Your profile has been saved. Generating scholarship matches...",
       });
       queryClient.invalidateQueries({ queryKey: ["/api/profile"] });
       
       // Store profile ID and user ID in localStorage for demo purposes
-      localStorage.setItem('currentProfileId', profile.id);
-      localStorage.setItem('currentUserId', profile.userId);
+      localStorage.setItem('currentProfileId', response.id);
+      localStorage.setItem('currentUserId', response.userId);
       
       // Generate matches after profile creation with the correct profile ID
-      generateMatchesMutation.mutate(profile.id);
+      console.log("Generating matches for profile:", response.id);
+      generateMatchesMutation.mutate(response.id);
     },
     onError: (error) => {
       toast({
@@ -81,11 +85,16 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
 
   const generateMatchesMutation = useMutation({
     mutationFn: async (profileId: string) => {
+      console.log("Generating matches for profile ID:", profileId);
+      if (!profileId) {
+        throw new Error("Profile ID is required for match generation");
+      }
       return await apiRequest("POST", "/api/matches/generate", {
-        profileId
+        profileId: profileId
       });
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
+      console.log("Matches generated successfully:", response);
       toast({
         title: "Matches Generated",
         description: "Your personalized scholarship matches are ready!",
@@ -98,6 +107,11 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
     },
     onError: (error) => {
       console.error("Match generation error:", error);
+      toast({
+        title: "Warning",
+        description: "Profile created but match generation failed. You can generate matches from the dashboard.",
+        variant: "destructive",
+      });
       // Still navigate even if match generation fails
       if (onComplete) {
         onComplete();

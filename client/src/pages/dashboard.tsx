@@ -63,7 +63,7 @@ export default function Dashboard() {
 
   const getStats = () => {
     if (!matches) return { totalMatches: 0, highMatch: 0, dueThisMonth: 0, totalValue: "$0" };
-    
+
     const totalMatches = matches.length;
     const highMatch = matches.filter(m => m.matchScore >= 90).length;
     const dueThisMonth = matches.filter(m => {
@@ -89,10 +89,16 @@ export default function Dashboard() {
 
   const stats = getStats();
 
-  const filteredAndSortedMatches = matches ? matches
-    .filter(match => {
-      if (filters.type && match.scholarship.type !== filters.type) return false;
-      // Add more filtering logic as needed
+  const filteredAndSortedMatches = matches
+    ?.filter(match => {
+      if (filters.type && filters.type !== "all" && match.scholarship.type !== filters.type) return false;
+      if (filters.amount && filters.amount !== "all") {
+        const amount = parseInt(match.scholarship.amount.replace(/[^0-9]/g, ''));
+        const filterAmount = parseInt(filters.amount);
+        if (filterAmount === 5000 && amount >= 5000) return false;
+        if (filterAmount === 10000 && (amount < 5000 || amount >= 10000)) return false;
+        if (filterAmount === 20000 && amount < 10000) return false;
+      }
       return true;
     })
     .sort((a, b) => {
@@ -108,7 +114,7 @@ export default function Dashboard() {
         default:
           return 0;
       }
-    }) : [];
+    });
 
   if (isLoading) {
     return (
@@ -127,7 +133,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-slate-50">
       <Navigation />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-800 mb-4">Your Personalized Dashboard</h1>
@@ -215,7 +221,7 @@ export default function Dashboard() {
                   <div className="flex flex-wrap gap-4">
                     <Select 
                       value={filters.type} 
-                      onValueChange={(value) => setFilters({...filters, type: value === "all" ? "" : value})}
+                      onValueChange={(value) => setFilters({...filters, type: value})}
                     >
                       <SelectTrigger className="w-[180px]" data-testid="select-filter-type">
                         <SelectValue placeholder="All Types" />
@@ -224,29 +230,29 @@ export default function Dashboard() {
                         <SelectItem value="all">All Types</SelectItem>
                         <SelectItem value="merit-based">Merit-Based</SelectItem>
                         <SelectItem value="need-based">Need-Based</SelectItem>
-                        <SelectItem value="field-specific">Field-Specific</SelectItem>
+                        <SelectItem value="athletic">Athletic</SelectItem>
+                        <SelectItem value="minority">Minority</SelectItem>
                       </SelectContent>
                     </Select>
 
                     <Select 
                       value={filters.amount} 
-                      onValueChange={(value) => setFilters({...filters, amount: value === "all" ? "" : value})}
+                      onValueChange={(value) => setFilters({...filters, amount: value})}
                     >
                       <SelectTrigger className="w-[180px]" data-testid="select-filter-amount">
                         <SelectValue placeholder="Any Amount" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">Any Amount</SelectItem>
-                        <SelectItem value="1000">$1,000+</SelectItem>
-                        <SelectItem value="5000">$5,000+</SelectItem>
-                        <SelectItem value="10000">$10,000+</SelectItem>
-                        <SelectItem value="25000">$25,000+</SelectItem>
+                        <SelectItem value="all">All Amounts</SelectItem>
+                        <SelectItem value="5000">Under $5,000</SelectItem>
+                        <SelectItem value="10000">$5,000 - $10,000</SelectItem>
+                        <SelectItem value="20000">Over $10,000</SelectItem>
                       </SelectContent>
                     </Select>
 
                     <Select 
                       value={filters.deadline} 
-                      onValueChange={(value) => setFilters({...filters, deadline: value === "all" ? "" : value})}
+                      onValueChange={(value) => setFilters({...filters, deadline: value})}
                     >
                       <SelectTrigger className="w-[180px]" data-testid="select-filter-deadline">
                         <SelectValue placeholder="All Deadlines" />
@@ -254,12 +260,12 @@ export default function Dashboard() {
                       <SelectContent>
                         <SelectItem value="all">All Deadlines</SelectItem>
                         <SelectItem value="30">Next 30 days</SelectItem>
-                        <SelectItem value="90">Next 3 months</SelectItem>
-                        <SelectItem value="180">Next 6 months</SelectItem>
+                        <SelectItem value="60">Next 60 days</SelectItem>
+                        <SelectItem value="90">Next 90 days</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                  
+
                   <div className="flex items-center space-x-4">
                     <span className="text-sm text-slate-600">Sort by:</span>
                     <Select value={sortBy} onValueChange={setSortBy}>

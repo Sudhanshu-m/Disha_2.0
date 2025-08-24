@@ -50,6 +50,7 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
   const createProfileMutation = useMutation({
     mutationFn: async (data: ProfileFormData) => {
       const userId = `user-${Date.now()}`; // Generate a unique user ID
+      console.log("Sending profile data:", { profile: data, userId });
       const response = await apiRequest("POST", "/api/profile", {
         profile: data,
         userId: userId
@@ -59,6 +60,17 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
     },
     onSuccess: (response: any) => {
       console.log("Profile created successfully:", response);
+      
+      if (!response || !response.id) {
+        console.error("Invalid profile response:", response);
+        toast({
+          title: "Error",
+          description: "Profile creation failed - invalid response",
+          variant: "destructive",
+        });
+        return;
+      }
+      
       toast({
         title: "Profile Created Successfully", 
         description: "Your profile has been saved. Generating scholarship matches...",
@@ -86,8 +98,8 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
   const generateMatchesMutation = useMutation({
     mutationFn: async (profileId: string) => {
       console.log("Generating matches for profile ID:", profileId);
-      if (!profileId) {
-        throw new Error("Profile ID is required for match generation");
+      if (!profileId || profileId === 'null' || profileId === 'undefined') {
+        throw new Error("Valid Profile ID is required for match generation");
       }
       return await apiRequest("POST", "/api/matches/generate", {
         profileId: profileId

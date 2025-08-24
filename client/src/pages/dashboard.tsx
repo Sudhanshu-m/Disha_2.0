@@ -24,6 +24,8 @@ export default function Dashboard() {
 
   // Get profile ID from localStorage - in a real app, this would come from authentication
   const profileId = localStorage.getItem('currentProfileId') || 'demo-profile';
+  const validProfileId = profileId !== 'demo-profile' ? profileId : null;
+
 
   const { data: matches, isLoading } = useQuery<(ScholarshipMatch & { scholarship: Scholarship })[]>({
     queryKey: ['/api/matches', profileId],
@@ -219,8 +221,8 @@ export default function Dashboard() {
               <CardContent className="p-6">
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                   <div className="flex flex-wrap gap-4">
-                    <Select 
-                      value={filters.type} 
+                    <Select
+                      value={filters.type}
                       onValueChange={(value) => setFilters({...filters, type: value})}
                     >
                       <SelectTrigger className="w-[180px]" data-testid="select-filter-type">
@@ -235,8 +237,8 @@ export default function Dashboard() {
                       </SelectContent>
                     </Select>
 
-                    <Select 
-                      value={filters.amount} 
+                    <Select
+                      value={filters.amount}
                       onValueChange={(value) => setFilters({...filters, amount: value})}
                     >
                       <SelectTrigger className="w-[180px]" data-testid="select-filter-amount">
@@ -250,8 +252,8 @@ export default function Dashboard() {
                       </SelectContent>
                     </Select>
 
-                    <Select 
-                      value={filters.deadline} 
+                    <Select
+                      value={filters.deadline}
                       onValueChange={(value) => setFilters({...filters, deadline: value})}
                     >
                       <SelectTrigger className="w-[180px]" data-testid="select-filter-deadline">
@@ -304,11 +306,14 @@ export default function Dashboard() {
                   <div className="flex justify-center space-x-4">
                     <Button variant="outline" onClick={() => window.location.href = '/profile'}>Create Profile</Button>
                     <Button onClick={() => {
-                      if (profileId !== 'demo-profile') {
+                      if (validProfileId) {
                         // Generate matches if we have a profile
-                        apiRequest('POST', '/api/matches/generate', { profileId }).then(() => {
-                          queryClient.invalidateQueries({ queryKey: ['/api/matches', profileId] });
+                        apiRequest('POST', '/api/matches/generate', { profileId: validProfileId }).then(() => {
+                          queryClient.invalidateQueries({ queryKey: ['/api/matches', validProfileId] });
                           toast({ title: 'Matches Generated', description: 'New scholarship matches have been generated!' });
+                        }).catch((error) => {
+                          console.error('Error generating matches:', error);
+                          toast({ title: 'Error', description: 'Failed to generate matches. Please try again.', variant: 'destructive' });
                         });
                       } else {
                         toast({ title: 'Profile Required', description: 'Please create a profile first.', variant: 'destructive' });

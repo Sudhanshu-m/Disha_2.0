@@ -41,6 +41,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create student profile
   app.post("/api/profile", async (req, res) => {
     try {
+      console.log("Creating profile with data:", req.body);
+      
       const profileData = insertStudentProfileSchema.parse(req.body.profile);
       const userId = req.body.userId;
       
@@ -62,10 +64,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         userId: user.id
       });
 
+      console.log("Profile created successfully:", profile);
       res.json(profile);
     } catch (error) {
       console.error("Error creating profile:", error);
-      res.status(500).json({ message: "Failed to create profile" });
+      res.status(500).json({ message: "Failed to create profile", error: error.message });
     }
   });
 

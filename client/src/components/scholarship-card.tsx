@@ -12,7 +12,7 @@ interface ScholarshipCardProps {
 
 export default function ScholarshipCard({ match, onFavorite, onApply }: ScholarshipCardProps) {
   const { scholarship, matchScore, status } = match;
-  
+
   const getMatchScoreColor = (score: number) => {
     if (score >= 90) return "bg-green-100 text-green-800";
     if (score >= 70) return "bg-yellow-100 text-yellow-800";
@@ -52,8 +52,8 @@ export default function ScholarshipCard({ match, onFavorite, onApply }: Scholars
               </span>
             </div>
           </div>
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             size="icon"
             onClick={() => onFavorite?.(match.id)}
             className={status === 'favorited' ? 'text-red-500' : 'text-slate-400 hover:text-slate-600'}
@@ -62,28 +62,28 @@ export default function ScholarshipCard({ match, onFavorite, onApply }: Scholars
             <Heart className={`w-5 h-5 ${status === 'favorited' ? 'fill-current' : ''}`} />
           </Button>
         </div>
-        
+
         <p className="text-slate-600 mb-4 text-sm" data-testid={`text-description-${scholarship.id}`}>
           {scholarship.description}
         </p>
-        
+
         <div className="flex flex-wrap gap-2 mb-4">
-          {scholarship.tags.map((tag, index) => (
+          {(typeof scholarship.tags === 'string' ? JSON.parse(scholarship.tags) : scholarship.tags).map((tag: string, index: number) => (
             <Badge key={index} variant="secondary" className="text-xs">
               {tag}
             </Badge>
           ))}
         </div>
-        
+
         <div className="border-t border-slate-200 pt-4 flex justify-between items-center">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             className="text-primary hover:text-blue-700 font-medium text-sm"
             data-testid={`button-requirements-${scholarship.id}`}
           >
             View Requirements
           </Button>
-          <Button 
+          <Button
             onClick={() => onApply?.(scholarship)}
             className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
             data-testid={`button-apply-${scholarship.id}`}

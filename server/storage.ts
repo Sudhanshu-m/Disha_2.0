@@ -90,7 +90,7 @@ export class DatabaseStorage implements IStorage {
       .insert(studentProfiles)
       .values({
         ...profile,
-        updatedAt: sql`CURRENT_TIMESTAMP`
+        updatedAt: sql`datetime('now')`
       })
       .returning();
     return newProfile;
@@ -101,7 +101,7 @@ export class DatabaseStorage implements IStorage {
       .update(studentProfiles)
       .set({
         ...profile,
-        updatedAt: sql`CURRENT_TIMESTAMP`
+        updatedAt: sql`datetime('now')`
       })
       .where(eq(studentProfiles.id, id))
       .returning();
@@ -508,7 +508,7 @@ export class DatabaseStorage implements IStorage {
     ];
 
     // Insert scholarships using direct SQL
-    for (const scholarship of scholarshipData.slice(0, 5)) { // Just insert first 5 for now
+    for (const scholarship of scholarshipData) { // Insert all scholarships
       await db.execute(sql`
         INSERT INTO scholarships (
           id, title, organization, amount, deadline, description, requirements,
@@ -532,7 +532,7 @@ export class DatabaseStorage implements IStorage {
       `);
     }
 
-    console.log(`Seeded ${Math.min(scholarshipData.length, 5)} scholarships successfully`);
+    console.log(`Seeded ${scholarshipData.length} scholarships successfully`);
   }
 }
 

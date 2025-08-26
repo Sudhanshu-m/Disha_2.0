@@ -23,8 +23,8 @@ export const studentProfiles = sqliteTable("student_profiles", {
   activities: text("activities"),
   financialNeed: text("financial_need").notNull(),
   location: text("location").notNull(),
-  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
-  updatedAt: text("updated_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
+  createdAt: text("created_at").default(sql`datetime('now')`).notNull(),
+  updatedAt: text("updated_at").default(sql`datetime('now')`).notNull(),
 });
 
 export const scholarships = sqliteTable("scholarships", {
@@ -41,7 +41,7 @@ export const scholarships = sqliteTable("scholarships", {
   eligibleFields: text("eligible_fields"), // JSON string of array
   eligibleLevels: text("eligible_levels"), // JSON string of array
   isActive: integer("is_active", { mode: 'boolean' }).default(true).notNull(),
-  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
+  createdAt: text("created_at").default(sql`datetime('now')`).notNull(),
 });
 
 export const scholarshipMatches = sqliteTable("scholarship_matches", {
@@ -51,7 +51,7 @@ export const scholarshipMatches = sqliteTable("scholarship_matches", {
   matchScore: integer("match_score").notNull(),
   aiReasoning: text("ai_reasoning"),
   status: text("status").default("new").notNull(), // new, favorited, applied, rejected
-  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
+  createdAt: text("created_at").default(sql`datetime('now')`).notNull(),
 });
 
 export const applicationGuidance = sqliteTable("application_guidance", {
@@ -61,7 +61,7 @@ export const applicationGuidance = sqliteTable("application_guidance", {
   essayTips: text("essay_tips"),
   checklist: text("checklist"), // JSON string
   improvementSuggestions: text("improvement_suggestions"),
-  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
+  createdAt: text("created_at").default(sql`datetime('now')`).notNull(),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({

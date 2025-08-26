@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Bell } from "lucide-react";
+import { Bell, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Navigation() {
@@ -11,67 +11,69 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2" data-testid="link-home">
             <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">SA</span>
+              <span className="text-white font-bold text-sm">DA</span>
             </div>
-            <h1 className="text-xl font-bold text-slate-800">ScholarshipAI</h1>
+            <h1 className="text-xl font-bold text-slate-800">Disha AI</h1>
           </Link>
-          
+
           <div className="hidden md:flex items-center space-x-6">
-            <Link 
-              href="/dashboard" 
+            <Link
+              href="/dashboard"
               className={`transition-colors ${
-                location === '/dashboard' 
-                  ? 'text-primary' 
+                location === '/dashboard'
+                  ? 'text-primary'
                   : 'text-slate-600 hover:text-primary'
               }`}
               data-testid="link-dashboard"
             >
               Dashboard
             </Link>
-            <Link 
-              href="/matches" 
+            <Link
+              href="/matches"
               className={`transition-colors ${
-                location === '/matches' 
-                  ? 'text-primary' 
+                location === '/matches'
+                  ? 'text-primary'
                   : 'text-slate-600 hover:text-primary'
               }`}
               data-testid="link-matches"
             >
               Matches
             </Link>
-            <Link 
-              href="/#opportunities" 
+            <Link
+              href="/#opportunities"
               className="text-slate-600 hover:text-primary transition-colors"
               data-testid="link-opportunities"
             >
               Opportunities
             </Link>
-            <Link 
-              href="/profile" 
+            <Link
+              href="/profile"
               className={`transition-colors ${
-                location === '/profile' 
-                  ? 'text-primary' 
+                location === '/profile'
+                  ? 'text-primary'
                   : 'text-slate-600 hover:text-primary'
               }`}
               data-testid="link-profile"
             >
               Profile
             </Link>
-            <Link 
-              href="/#guidance" 
+            <Link
+              href="/#guidance"
               className="text-slate-600 hover:text-primary transition-colors"
               data-testid="link-guidance"
             >
               Guidance
             </Link>
           </div>
-          
+
           <div className="flex items-center space-x-3">
             <Button variant="ghost" size="icon" data-testid="button-notifications">
               <Bell className="w-5 h-5" />
             </Button>
             <Link href="/profile">
-              <div className="w-8 h-8 bg-slate-300 rounded-full cursor-pointer hover:bg-slate-400 transition-colors" data-testid="avatar-user"></div>
+              <Button variant="ghost" size="icon" className="rounded-full" data-testid="avatar-user">
+                <User className="w-5 h-5" />
+              </Button>
             </Link>
           </div>
         </div>

@@ -5,7 +5,7 @@ import HeroSection from "@/components/hero-section";
 import ProfileForm from "@/components/profile-form";
 import SuccessStories from "@/components/success-stories";
 import { Button } from "@/components/ui/button";
-import { Check, FileText, Shield, Users, DollarSign, Clock, Target, Info } from "lucide-react";
+import { Check, FileText, Shield, Users, DollarSign, Clock, Target, Info, X, Heart, User } from "lucide-react";
 
 export default function Home() {
   const [showProfileForm, setShowProfileForm] = useState(false);
@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50">
       <Navigation />
-      
+
       <HeroSection onStartAnalysis={scrollToProfileForm} />
 
       {/* Profile Creation Section */}
@@ -40,7 +40,7 @@ export default function Home() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-800 mb-4">How ScholarshipAI Works</h2>
+            <h2 className="text-3xl font-bold text-slate-800 mb-4">How Disha AI Works</h2>
             <p className="text-lg text-slate-600">Three simple steps to unlock your educational funding</p>
           </div>
 
@@ -122,12 +122,12 @@ export default function Home() {
             </div>
 
             <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
-                alt="Students working on scholarship applications together" 
+              <img
+                src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
+                alt="Students working on scholarship applications together"
                 className="rounded-xl shadow-lg w-full h-auto"
               />
-              
+
               <div className="absolute -bottom-6 -right-6 bg-white rounded-lg p-6 shadow-xl max-w-sm">
                 <div className="flex items-start space-x-3">
                   <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
@@ -146,6 +146,24 @@ export default function Home() {
 
       <SuccessStories />
 
+      {/* Swipe Section - Placeholder for new UI */}
+      <section className="py-16 bg-slate-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-800 mb-4">Explore Opportunities</h2>
+            <p className="text-lg text-slate-600">Swipe left to discard, right to save.</p>
+          </div>
+          <div className="flex justify-center space-x-8">
+            <button className="p-4 rounded-full bg-white shadow-lg hover:bg-red-100 transition-colors">
+              <X className="w-10 h-10 text-red-500" />
+            </button>
+            <button className="p-4 rounded-full bg-white shadow-lg hover:bg-green-100 transition-colors">
+              <Heart className="w-10 h-10 text-green-500" />
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-slate-800 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -153,9 +171,9 @@ export default function Home() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">SA</span>
+                  <span className="text-white font-bold text-sm">DA</span>
                 </div>
-                <h3 className="text-xl font-bold">ScholarshipAI</h3>
+                <h3 className="text-xl font-bold">Disha AI</h3>
               </div>
               <p className="text-slate-300 mb-4">Empowering students to discover and secure funding opportunities through intelligent AI matching.</p>
             </div>
@@ -192,7 +210,7 @@ export default function Home() {
           </div>
 
           <div className="border-t border-slate-700 mt-8 pt-8 text-center text-slate-300">
-            <p>&copy; 2024 ScholarshipAI. All rights reserved. Empowering students to achieve their educational dreams.</p>
+            <p>&copy; 2024 Disha AI. All rights reserved. Empowering students to achieve their educational dreams.</p>
           </div>
         </div>
       </footer>

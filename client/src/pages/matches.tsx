@@ -38,7 +38,7 @@ export default function Matches() {
 
     setIsAnimating(true);
     const currentMatch = matches[currentIndex];
-    
+
     // Update match status based on swipe direction
     const status = direction === 'right' ? 'favorited' : 'passed';
     updateMatchMutation.mutate({ matchId: currentMatch.id, status });
@@ -79,20 +79,20 @@ export default function Matches() {
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging || !cardRef.current) return;
-    
+
     const touch = e.touches[0];
     const startX = parseFloat(cardRef.current.getAttribute('data-start-x') || '0');
     const currentX = touch.clientX;
     const offset = currentX - startX;
-    
+
     setDragOffset(offset);
   };
 
   const handleTouchEnd = () => {
     if (!isDragging) return;
-    
+
     setIsDragging(false);
-    
+
     // Determine swipe direction based on offset
     if (Math.abs(dragOffset) > 100) {
       if (dragOffset > 0) {
@@ -101,7 +101,7 @@ export default function Matches() {
         handleSwipe('left');
       }
     }
-    
+
     setDragOffset(0);
   };
 
@@ -113,19 +113,19 @@ export default function Matches() {
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging || !cardRef.current) return;
-    
+
     const startX = parseFloat(cardRef.current.getAttribute('data-start-x') || '0');
     const currentX = e.clientX;
     const offset = currentX - startX;
-    
+
     setDragOffset(offset);
   };
 
   const handleMouseUp = () => {
     if (!isDragging) return;
-    
+
     setIsDragging(false);
-    
+
     // Determine swipe direction based on offset
     if (Math.abs(dragOffset) > 100) {
       if (dragOffset > 0) {
@@ -134,7 +134,7 @@ export default function Matches() {
         handleSwipe('left');
       }
     }
-    
+
     setDragOffset(0);
   };
 
@@ -146,19 +146,19 @@ export default function Matches() {
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {
       if (!isDragging || !cardRef.current) return;
-      
+
       const startX = parseFloat(cardRef.current.getAttribute('data-start-x') || '0');
       const currentX = e.clientX;
       const offset = currentX - startX;
-      
+
       setDragOffset(offset);
     };
 
     const handleGlobalMouseUp = () => {
       if (!isDragging) return;
-      
+
       setIsDragging(false);
-      
+
       // Determine swipe direction based on offset
       if (Math.abs(dragOffset) > 100) {
         if (dragOffset > 0) {
@@ -167,7 +167,7 @@ export default function Matches() {
           handleSwipe('left');
         }
       }
-      
+
       setDragOffset(0);
     };
 
@@ -245,11 +245,11 @@ export default function Matches() {
   return (
     <div className="min-h-screen bg-slate-50">
       <Navigation />
-      
+
       <div className="max-w-2xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-800 mb-2">Scholarship Matches</h1>
+          <h1 className="text-3xl font-bold text-slate-800 mb-2">Disha Ai Scholarship Matches</h1>
           <p className="text-slate-600">
             Swipe right to save, left to pass • {currentIndex + 1} of {matches.length}
           </p>
@@ -265,12 +265,15 @@ export default function Matches() {
         <div className="relative h-[600px] mb-8">
           <Card 
             ref={cardRef}
-            className={`absolute inset-0 shadow-xl border-2 transition-all duration-300 cursor-grab active:cursor-grabbing select-none ${
-              isAnimating ? 'scale-95 opacity-0' : 'scale-100 opacity-100'
+            className={`absolute inset-0 shadow-xl border-2 cursor-grab active:cursor-grabbing select-none ${
+              isAnimating 
+                ? 'transition-all duration-300 ease-out scale-95 opacity-0' 
+                : 'transition-transform duration-100 ease-out scale-100 opacity-100'
             }`}
             style={{
-              transform: `translateX(${dragOffset}px) rotate(${dragOffset * 0.1}deg)`,
-              opacity: isDragging ? Math.max(0.7, 1 - Math.abs(dragOffset) / 300) : 1,
+              transform: `translateX(${dragOffset}px) rotate(${dragOffset * 0.05}deg)`,
+              opacity: isDragging ? Math.max(0.8, 1 - Math.abs(dragOffset) / 400) : 1,
+              transition: isDragging ? 'none' : 'transform 0.2s ease-out, opacity 0.2s ease-out',
             }}
             data-testid={`card-scholarship-${scholarship.id}`}
             onTouchStart={handleTouchStart}
@@ -351,37 +354,37 @@ export default function Matches() {
           <Button
             size="lg"
             variant="outline"
-            className="w-16 h-16 rounded-full border-red-300 hover:bg-red-50 hover:border-red-400"
+            className="w-16 h-16 rounded-full border-red-300 hover:bg-red-50 hover:border-red-400 transition-all duration-200 hover:scale-110 active:scale-95"
             onClick={() => handleSwipe('left')}
             disabled={isAnimating}
             data-testid="button-pass"
           >
             <X className="w-8 h-8 text-red-500" />
           </Button>
-          
+
           <Button
             size="lg"
-            className="w-16 h-16 rounded-full bg-green-500 hover:bg-green-600"
+            className="w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 transition-all duration-200 hover:scale-110 active:scale-95"
             onClick={() => handleSwipe('right')}
             disabled={isAnimating}
             data-testid="button-like"
           >
-            <Heart className="w-8 h-8 text-white" />
+            <Heart className="w-8 h-8 text-white fill-white" />
           </Button>
         </div>
 
         {/* Swipe Indicators */}
         {isDragging && (
           <div className="fixed inset-0 pointer-events-none flex items-center justify-between px-8 z-10">
-            <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-all ${
-              dragOffset > 50 ? 'bg-green-100 scale-110' : 'bg-gray-100'
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-200 ${
+              dragOffset < -50 ? 'bg-red-100 scale-110 shadow-lg' : 'bg-gray-100 scale-100'
             }`}>
-              <Heart className={`w-8 h-8 ${dragOffset > 50 ? 'text-green-500' : 'text-gray-400'}`} />
+              <X className={`w-8 h-8 transition-colors duration-200 ${dragOffset < -50 ? 'text-red-500' : 'text-gray-400'}`} />
             </div>
-            <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-all ${
-              dragOffset < -50 ? 'bg-red-100 scale-110' : 'bg-gray-100'
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-200 ${
+              dragOffset > 50 ? 'bg-green-100 scale-110 shadow-lg' : 'bg-gray-100 scale-100'
             }`}>
-              <X className={`w-8 h-8 ${dragOffset < -50 ? 'text-red-500' : 'text-gray-400'}`} />
+              <Heart className={`w-8 h-8 transition-colors duration-200 ${dragOffset > 50 ? 'text-green-500 fill-green-500' : 'text-gray-400'}`} />
             </div>
           </div>
         )}

@@ -89,7 +89,7 @@ export class DatabaseStorage implements IStorage {
       .insert(studentProfiles)
       .values({
         ...profile,
-        updatedAt: sql`now()`
+        updatedAt: sql`CURRENT_TIMESTAMP`
       })
       .returning();
     return newProfile;
@@ -100,7 +100,7 @@ export class DatabaseStorage implements IStorage {
       .update(studentProfiles)
       .set({
         ...profile,
-        updatedAt: sql`now()`
+        updatedAt: sql`CURRENT_TIMESTAMP`
       })
       .where(eq(studentProfiles.id, id))
       .returning();

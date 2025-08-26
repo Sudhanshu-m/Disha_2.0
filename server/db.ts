@@ -1,15 +1,20 @@
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-serverless';
-import ws from "ws";
+import { drizzle } from 'drizzle-orm/libsql';
+import { createClient } from '@libsql/client';
 import * as schema from "@shared/schema";
 
-neonConfig.webSocketConstructor = ws;
+// For development, use local SQLite. For production, use Turso.
+// If DATABASE_URL contains PostgreSQL params, default to local SQLite
+const databaseUrl = process.env.DATABASE_URL;
+let finalUrl = 'file:./database.sqlite'; // Default to local SQLite
 
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
+// Only use DATABASE_URL if it's a valid SQLite/Turso URL
+if (databaseUrl && (databaseUrl.startsWith('file:') || databaseUrl.startsWith('libsql:'))) {
+  finalUrl = databaseUrl;
 }
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle({ client: pool, schema });
+const client = createClient({
+  url: finalUrl,
+  authToken: process.env.DATABASE_AUTH_TOKEN, // Only needed for Turso
+});
+
+export const db = drizzle(client, { schema });

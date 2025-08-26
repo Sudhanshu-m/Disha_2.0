@@ -1,17 +1,17 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, timestamp, boolean, jsonb } from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+export const users = sqliteTable("users", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
 });
 
-export const studentProfiles = pgTable("student_profiles", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  userId: varchar("user_id").references(() => users.id).notNull(),
+export const studentProfiles = sqliteTable("student_profiles", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  userId: text("user_id").references(() => users.id).notNull(),
   name: text("name").notNull(),
   email: text("email").notNull(),
   educationLevel: text("education_level").notNull(),
@@ -22,45 +22,45 @@ export const studentProfiles = pgTable("student_profiles", {
   activities: text("activities"),
   financialNeed: text("financial_need").notNull(),
   location: text("location").notNull(),
-  createdAt: timestamp("created_at").default(sql`now()`).notNull(),
-  updatedAt: timestamp("updated_at").default(sql`now()`).notNull(),
+  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
+  updatedAt: text("updated_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
 });
 
-export const scholarships = pgTable("scholarships", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+export const scholarships = sqliteTable("scholarships", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   title: text("title").notNull(),
   organization: text("organization").notNull(),
   amount: text("amount").notNull(),
   deadline: text("deadline").notNull(),
   description: text("description").notNull(),
   requirements: text("requirements").notNull(),
-  tags: text("tags").array().notNull(),
+  tags: text("tags").notNull(), // JSON string of array
   type: text("type").notNull(), // merit-based, need-based, field-specific, etc.
   eligibilityGpa: text("eligibility_gpa"),
-  eligibleFields: text("eligible_fields").array(),
-  eligibleLevels: text("eligible_levels").array(),
-  isActive: boolean("is_active").default(true).notNull(),
-  createdAt: timestamp("created_at").default(sql`now()`).notNull(),
+  eligibleFields: text("eligible_fields"), // JSON string of array
+  eligibleLevels: text("eligible_levels"), // JSON string of array
+  isActive: integer("is_active", { mode: "boolean" }).default(true).notNull(),
+  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
 });
 
-export const scholarshipMatches = pgTable("scholarship_matches", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  profileId: varchar("profile_id").references(() => studentProfiles.id).notNull(),
-  scholarshipId: varchar("scholarship_id").references(() => scholarships.id).notNull(),
+export const scholarshipMatches = sqliteTable("scholarship_matches", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  profileId: text("profile_id").references(() => studentProfiles.id).notNull(),
+  scholarshipId: text("scholarship_id").references(() => scholarships.id).notNull(),
   matchScore: integer("match_score").notNull(),
   aiReasoning: text("ai_reasoning"),
   status: text("status").default("new").notNull(), // new, favorited, applied, rejected
-  createdAt: timestamp("created_at").default(sql`now()`).notNull(),
+  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
 });
 
-export const applicationGuidance = pgTable("application_guidance", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  profileId: varchar("profile_id").references(() => studentProfiles.id).notNull(),
-  scholarshipId: varchar("scholarship_id").references(() => scholarships.id).notNull(),
+export const applicationGuidance = sqliteTable("application_guidance", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  profileId: text("profile_id").references(() => studentProfiles.id).notNull(),
+  scholarshipId: text("scholarship_id").references(() => scholarships.id).notNull(),
   essayTips: text("essay_tips"),
-  checklist: jsonb("checklist"),
+  checklist: text("checklist"), // JSON string
   improvementSuggestions: text("improvement_suggestions"),
-  createdAt: timestamp("created_at").default(sql`now()`).notNull(),
+  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({

@@ -28,7 +28,8 @@ export default function HeroSection({ onStartAnalysis }: HeroSectionProps) {
               </Button>
               <Button 
                 variant="outline"
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors"
+                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+                onClick={() => window.location.href = '/matches'}
                 data-testid="button-sample-results"
               >
                 View Sample Results

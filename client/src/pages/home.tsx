@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import Navigation from "@/components/navigation";
 import HeroSection from "@/components/hero-section";
 import ProfileForm from "@/components/profile-form";
-import SuccessStories from "@/components/success-stories";
+
 import { Button } from "@/components/ui/button";
 import { Check, FileText, Shield, Users, DollarSign, Clock, Target, Info, X, Heart, User } from "lucide-react";
 
@@ -144,22 +144,63 @@ export default function Home() {
         </div>
       </section>
 
-      <SuccessStories />
-
-      {/* Swipe Section - Placeholder for new UI */}
+      {/* Sample Opportunities Section */}
       <section className="py-16 bg-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-800 mb-4">Explore Opportunities</h2>
-            <p className="text-lg text-slate-600">Swipe left to discard, right to save.</p>
+            <h2 className="text-3xl font-bold text-slate-800 mb-4">Discover Opportunities</h2>
+            <p className="text-lg text-slate-600">Swipe left to pass, right to save for later</p>
           </div>
-          <div className="flex justify-center space-x-8">
-            <button className="p-4 rounded-full bg-white shadow-lg hover:bg-red-100 transition-colors">
+          
+          {/* Sample Scholarship Cards */}
+          <div className="max-w-md mx-auto mb-8">
+            <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <User className="w-6 h-6 text-white" />
+                </div>
+                <div className="ml-3">
+                  <h3 className="font-semibold text-slate-800">Tech Innovation Grant</h3>
+                  <p className="text-sm text-slate-500">TechForward Foundation</p>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Amount:</span>
+                  <span className="font-semibold text-green-600">$8,500</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Deadline:</span>
+                  <span className="font-semibold text-slate-800">April 15, 2024</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Match Score:</span>
+                  <span className="font-semibold text-blue-600">94%</span>
+                </div>
+                <p className="text-sm text-slate-600 mt-3">Supporting students in computer science and technology fields with demonstrated innovation potential.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex justify-center space-x-8 mb-8">
+            <button className="p-4 rounded-full bg-white shadow-lg hover:bg-red-100 hover:scale-110 transition-all duration-200">
               <X className="w-10 h-10 text-red-500" />
             </button>
-            <button className="p-4 rounded-full bg-white shadow-lg hover:bg-green-100 transition-colors">
+            <button className="p-4 rounded-full bg-white shadow-lg hover:bg-green-100 hover:scale-110 transition-all duration-200">
               <Heart className="w-10 h-10 text-green-500" />
             </button>
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center">
+            <p className="text-slate-600 mb-4">Ready to find your perfect scholarship matches?</p>
+            <Button 
+              onClick={scrollToProfileForm}
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Get Started Now
+            </Button>
           </div>
         </div>
       </section>

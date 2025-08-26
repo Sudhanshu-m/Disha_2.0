@@ -42,10 +42,10 @@ export async function generateScholarshipMatches(
     Title: ${s.title}
     Type: ${s.type}
     Requirements: ${s.requirements}
-    Eligible Fields: ${s.eligibleFields?.join(", ") || "Any"}
-    Eligible Levels: ${s.eligibleLevels?.join(", ") || "Any"}
+    Eligible Fields: ${s.eligibleFields ? JSON.parse(s.eligibleFields).join(", ") : "Any"}
+    Eligible Levels: ${s.eligibleLevels ? JSON.parse(s.eligibleLevels).join(", ") : "Any"}
     Min GPA: ${s.eligibilityGpa || "Not specified"}
-    Tags: ${s.tags.join(", ")}
+    Tags: ${JSON.parse(s.tags).join(", ")}
     `).join("\n")}
 
     Provide your analysis in JSON format with an array of matches:

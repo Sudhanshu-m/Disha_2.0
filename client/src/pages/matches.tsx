@@ -330,7 +330,7 @@ export default function Matches() {
               {/* Tags */}
               <div>
                 <div className="flex flex-wrap gap-2">
-                  {scholarship.tags.map((tag, index) => (
+                  {JSON.parse(scholarship.tags || '[]').map((tag, index) => (
                     <Badge key={index} variant="outline" className="text-xs">
                       {tag}
                     </Badge>

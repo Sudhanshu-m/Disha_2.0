@@ -1,0 +1,264 @@
+import { useState, useEffect } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import Navigation from "@/components/navigation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Heart, X, Star, Clock, DollarSign, MapPin, Building2 } from "lucide-react";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
+import type { ScholarshipMatch, Scholarship } from "@shared/schema";
+
+export default function Matches() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const { toast } = useToast();
+
+  const profileId = localStorage.getItem('currentProfileId') || 'demo-profile';
+
+  const { data: matches, isLoading } = useQuery<(ScholarshipMatch & { scholarship: Scholarship })[]>({
+    queryKey: ['/api/matches', profileId],
+    enabled: !!profileId,
+  });
+
+  const updateMatchMutation = useMutation({
+    mutationFn: async ({ matchId, status }: { matchId: string; status: string }) => {
+      return await apiRequest("PUT", `/api/matches/${matchId}/status`, { status });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/matches', profileId] });
+    },
+  });
+
+  const handleSwipe = (direction: 'left' | 'right') => {
+    if (!matches || currentIndex >= matches.length || isAnimating) return;
+
+    setIsAnimating(true);
+    const currentMatch = matches[currentIndex];
+    
+    // Update match status based on swipe direction
+    const status = direction === 'right' ? 'favorited' : 'passed';
+    updateMatchMutation.mutate({ matchId: currentMatch.id, status });
+
+    // Show feedback toast
+    if (direction === 'right') {
+      toast({
+        title: "Great Choice! 💚",
+        description: `You liked ${currentMatch.scholarship.title}`,
+      });
+    } else {
+      toast({
+        title: "Passed",
+        description: "We'll find you better matches!",
+      });
+    }
+
+    // Move to next card after animation
+    setTimeout(() => {
+      setCurrentIndex(prev => prev + 1);
+      setIsAnimating(false);
+    }, 300);
+  };
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    if (event.key === 'ArrowLeft') {
+      handleSwipe('left');
+    } else if (event.key === 'ArrowRight') {
+      handleSwipe('right');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [currentIndex, matches, isAnimating]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <Navigation />
+        <div className="max-w-2xl mx-auto px-4 py-16">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-slate-800 mb-4">Loading your matches...</h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!matches || matches.length === 0) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <Navigation />
+        <div className="max-w-2xl mx-auto px-4 py-16">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-slate-800 mb-4">No Matches Yet</h2>
+            <p className="text-slate-600 mb-8">Create a profile and generate matches to start swiping!</p>
+            <div className="space-x-4">
+              <Button onClick={() => window.location.href = '/profile'}>
+                Create Profile
+              </Button>
+              <Button variant="outline" onClick={() => {
+                apiRequest('POST', '/api/seed-data').then(() => {
+                  toast({ title: 'Sample Data Added', description: 'Check your dashboard for new opportunities!' });
+                  window.location.href = '/dashboard';
+                });
+              }}>
+                Add Sample Data
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentIndex >= matches.length) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <Navigation />
+        <div className="max-w-2xl mx-auto px-4 py-16">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-slate-800 mb-4">🎉 You've Reviewed All Matches!</h2>
+            <p className="text-slate-600 mb-8">Check your dashboard to see your favorited scholarships and start applying.</p>
+            <Button onClick={() => window.location.href = '/dashboard'}>
+              View Dashboard
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const currentMatch = matches[currentIndex];
+  const scholarship = currentMatch.scholarship;
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <Navigation />
+      
+      <div className="max-w-2xl mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-slate-800 mb-2">Scholarship Matches</h1>
+          <p className="text-slate-600">
+            Swipe right to save, left to pass • {currentIndex + 1} of {matches.length}
+          </p>
+          <div className="w-full bg-slate-200 rounded-full h-2 mt-4">
+            <div 
+              className="bg-primary h-2 rounded-full transition-all duration-300"
+              style={{ width: `${((currentIndex + 1) / matches.length) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Swipe Card */}
+        <div className="relative h-[600px] mb-8">
+          <Card 
+            className={`absolute inset-0 shadow-xl border-2 transition-all duration-300 ${
+              isAnimating ? 'scale-95 opacity-0' : 'scale-100 opacity-100'
+            }`}
+            data-testid={`card-scholarship-${scholarship.id}`}
+          >
+            <CardHeader className="pb-4">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                  <CardTitle className="text-xl mb-2">{scholarship.title}</CardTitle>
+                  <div className="flex items-center text-slate-600 mb-2">
+                    <Building2 className="w-4 h-4 mr-2" />
+                    <span>{scholarship.organization}</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="flex items-center text-green-600 font-semibold text-lg mb-1">
+                    <DollarSign className="w-5 h-5 mr-1" />
+                    {scholarship.amount}
+                  </div>
+                  <Badge variant="secondary" className="bg-primary/10 text-primary">
+                    {currentMatch.matchScore}% Match
+                  </Badge>
+                </div>
+              </div>
+            </CardHeader>
+
+            <CardContent className="space-y-6">
+              {/* Description */}
+              <div>
+                <h3 className="font-semibold text-slate-800 mb-2">About</h3>
+                <p className="text-slate-600 leading-relaxed">{scholarship.description}</p>
+              </div>
+
+              {/* Requirements */}
+              <div>
+                <h3 className="font-semibold text-slate-800 mb-2">Requirements</h3>
+                <p className="text-slate-600">{scholarship.requirements}</p>
+              </div>
+
+              {/* Details */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center">
+                  <Clock className="w-4 h-4 mr-2 text-slate-500" />
+                  <span className="text-sm text-slate-600">Deadline: {scholarship.deadline}</span>
+                </div>
+                <div className="flex items-center">
+                  <Star className="w-4 h-4 mr-2 text-slate-500" />
+                  <span className="text-sm text-slate-600 capitalize">{scholarship.type}</span>
+                </div>
+              </div>
+
+              {/* Tags */}
+              <div>
+                <div className="flex flex-wrap gap-2">
+                  {scholarship.tags.map((tag, index) => (
+                    <Badge key={index} variant="outline" className="text-xs">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* AI Reasoning */}
+              {currentMatch.aiReasoning && (
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h3 className="font-semibold text-blue-800 mb-2">🤖 Why This Matches You</h3>
+                  <p className="text-blue-700 text-sm">{currentMatch.aiReasoning}</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-center space-x-8">
+          <Button
+            size="lg"
+            variant="outline"
+            className="w-16 h-16 rounded-full border-red-300 hover:bg-red-50 hover:border-red-400"
+            onClick={() => handleSwipe('left')}
+            disabled={isAnimating}
+            data-testid="button-pass"
+          >
+            <X className="w-8 h-8 text-red-500" />
+          </Button>
+          
+          <Button
+            size="lg"
+            className="w-16 h-16 rounded-full bg-green-500 hover:bg-green-600"
+            onClick={() => handleSwipe('right')}
+            disabled={isAnimating}
+            data-testid="button-like"
+          >
+            <Heart className="w-8 h-8 text-white" />
+          </Button>
+        </div>
+
+        {/* Keyboard Hints */}
+        <div className="text-center mt-6">
+          <p className="text-sm text-slate-500">
+            Use keyboard: ← to pass, → to save
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

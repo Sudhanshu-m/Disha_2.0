@@ -29,6 +29,17 @@ export default function Navigation() {
               Dashboard
             </Link>
             <Link 
+              href="/matches" 
+              className={`transition-colors ${
+                location === '/matches' 
+                  ? 'text-primary' 
+                  : 'text-slate-600 hover:text-primary'
+              }`}
+              data-testid="link-matches"
+            >
+              Matches
+            </Link>
+            <Link 
               href="/#opportunities" 
               className="text-slate-600 hover:text-primary transition-colors"
               data-testid="link-opportunities"
@@ -59,7 +70,9 @@ export default function Navigation() {
             <Button variant="ghost" size="icon" data-testid="button-notifications">
               <Bell className="w-5 h-5" />
             </Button>
-            <div className="w-8 h-8 bg-slate-300 rounded-full" data-testid="avatar-user"></div>
+            <Link href="/profile">
+              <div className="w-8 h-8 bg-slate-300 rounded-full cursor-pointer hover:bg-slate-400 transition-colors" data-testid="avatar-user"></div>
+            </Link>
           </div>
         </div>
       </div>

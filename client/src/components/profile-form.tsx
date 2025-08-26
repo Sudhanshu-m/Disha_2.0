@@ -114,7 +114,7 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
       if (onComplete) {
         onComplete();
       } else {
-        navigate("/dashboard");
+        navigate("/matches");
       }
     },
     onError: (error) => {
@@ -128,7 +128,7 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
       if (onComplete) {
         onComplete();
       } else {
-        navigate("/dashboard");
+        navigate("/matches");
       }
     },
   });

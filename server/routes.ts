@@ -7,7 +7,7 @@ import {
   type StudentProfile,
   type Scholarship 
 } from "@shared/schema";
-import { generateScholarshipMatches, generateApplicationGuidance } from "./services/openai";
+import { generateScholarshipMatches, generateApplicationGuidance } from "./services/gemini";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get student profile by user ID
@@ -66,7 +66,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       console.log("Profile created successfully:", profile);
       res.json(profile);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error creating profile:", error);
       res.status(500).json({ message: "Failed to create profile", error: error.message });
     }
@@ -81,6 +81,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error updating profile:", error);
       res.status(500).json({ message: "Failed to update profile" });
+    }
+  });
+
+  // Seed sample data endpoint
+  app.post("/api/seed-data", async (req, res) => {
+    try {
+      await storage.seedSampleData();
+      res.json({ message: "Sample data seeded successfully" });
+    } catch (error) {
+      console.error("Error seeding data:", error);
+      res.status(500).json({ message: "Failed to seed sample data" });
     }
   });
 

@@ -206,7 +206,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-800 text-white py-12">
+      <footer className="bg-slate-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
@@ -214,44 +214,44 @@ export default function Home() {
                 <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">DA</span>
                 </div>
-                <h3 className="text-xl font-bold">Disha AI</h3>
+                <h3 className="text-xl font-bold text-white">Disha AI</h3>
               </div>
-              <p className="text-slate-300 mb-4">Empowering students to discover and secure funding opportunities through intelligent AI matching.</p>
+              <p className="text-slate-400 mb-4 leading-relaxed">Empowering students to discover and secure funding opportunities through intelligent AI matching.</p>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Platform</h4>
-              <ul className="space-y-2 text-slate-300">
-                <li><Link href="/" className="hover:text-white transition-colors">How it Works</Link></li>
-                <li><Link href="/#guidance" className="hover:text-white transition-colors">AI Matching</Link></li>
-                <li><Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link></li>
-                <li><a href="#" className="hover:text-white transition-colors">Success Stories</a></li>
+              <h4 className="font-semibold mb-4 text-white">Platform</h4>
+              <ul className="space-y-3">
+                <li><Link href="/" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">How it Works</Link></li>
+                <li><Link href="/#guidance" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">AI Matching</Link></li>
+                <li><Link href="/dashboard" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">Dashboard</Link></li>
+                <li><a href="#" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">Success Stories</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-slate-300">
-                <li><a href="#" className="hover:text-white transition-colors">Scholarship Database</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Financial Aid Guide</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Essay Templates</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+              <h4 className="font-semibold mb-4 text-white">Resources</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">Scholarship Database</a></li>
+                <li><a href="#" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">Financial Aid Guide</a></li>
+                <li><a href="#" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">Essay Templates</a></li>
+                <li><a href="#" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">Blog</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-slate-300">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+              <h4 className="font-semibold mb-4 text-white">Support</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">Help Center</a></li>
+                <li><a href="#" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">Contact Us</a></li>
+                <li><a href="#" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">Privacy Policy</a></li>
+                <li><a href="#" className="text-slate-400 hover:text-blue-400 transition-colors duration-200">Terms of Service</a></li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-slate-700 mt-8 pt-8 text-center text-slate-300">
-            <p>&copy; 2024 Disha AI. All rights reserved. Empowering students to achieve their educational dreams.</p>
+          <div className="border-t border-slate-700 mt-8 pt-8 text-center">
+            <p className="text-slate-400">&copy; 2024 Disha AI. All rights reserved. Empowering students to achieve their educational dreams.</p>
           </div>
         </div>
       </footer>

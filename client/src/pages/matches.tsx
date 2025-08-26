@@ -330,12 +330,12 @@ export default function Matches() {
               {/* Tags */}
               <div>
                 <div className="flex flex-wrap gap-2">
-                  {typeof scholarship.tags === 'string' ? JSON.parse(scholarship.tags).map((tag, index) => (
-                    <Badge key={index} variant="outline" className="text-xs">
+                  {typeof scholarship.tags === 'string' ? JSON.parse(scholarship.tags).map((tag: string) => (
+                    <Badge key={tag} variant="outline" className="text-xs">
                       {tag}
                     </Badge>
-                  )) : scholarship.tags.map((tag, index) => (
-                    <Badge key={index} variant="outline" className="text-xs">
+                  )) : scholarship.tags.map((tag: string) => (
+                    <Badge key={tag} variant="outline" className="text-xs">
                       {tag}
                     </Badge>
                   ))}

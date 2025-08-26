@@ -144,7 +144,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Save matches to database
       const savedMatches = [];
       for (const match of matches) {
-        if (match.matchScore >= 50) { // Only save matches above 50%
+        if (match.matchScore >= 30) { // Only save matches above 30%
           const savedMatch = await storage.createScholarshipMatch({
             profileId,
             scholarshipId: match.scholarshipId,

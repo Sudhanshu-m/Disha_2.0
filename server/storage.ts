@@ -507,8 +507,89 @@ export class DatabaseStorage implements IStorage {
       }
     ];
 
+    // Add more scholarships for better matching
+    const additionalScholarships = [
+      {
+        id: randomUUID(),
+        title: "Adobe Creative Scholarship",
+        organization: "Adobe Inc.",
+        amount: "$7,500",
+        deadline: "2025-04-25",
+        description: "Supporting creative students in digital arts and design.",
+        requirements: "Portfolio submission, creative arts major, 3.0+ GPA",
+        tags: ["creative", "design", "digital-arts", "portfolio"],
+        type: "merit-based",
+        eligibilityGpa: "3.0",
+        eligibleFields: ["Graphic Design", "Digital Arts", "Media Arts", "Computer Science"],
+        eligibleLevels: ["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        isActive: true
+      },
+      {
+        id: randomUUID(),
+        title: "Salesforce Trailblazer Scholarship",
+        organization: "Salesforce Foundation",
+        amount: "$10,000",
+        deadline: "2025-05-10",
+        description: "Empowering the next generation of business technology leaders.",
+        requirements: "Business or technology major, leadership experience, 3.2+ GPA",
+        tags: ["business", "technology", "leadership", "salesforce"],
+        type: "merit-based",
+        eligibilityGpa: "3.2",
+        eligibleFields: ["Business Administration", "Information Systems", "Computer Science", "Marketing"],
+        eligibleLevels: ["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        isActive: true
+      },
+      {
+        id: randomUUID(),
+        title: "General Academic Excellence Award",
+        organization: "Education Foundation",
+        amount: "$5,000",
+        deadline: "2025-06-01",
+        description: "Recognizing outstanding academic achievement across all fields.",
+        requirements: "3.5+ GPA, any major, demonstrated academic excellence",
+        tags: ["academic", "excellence", "general", "achievement"],
+        type: "merit-based",
+        eligibilityGpa: "3.5",
+        eligibleFields: null,
+        eligibleLevels: ["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        isActive: true
+      },
+      {
+        id: randomUUID(),
+        title: "International Student Success Fund",
+        organization: "Global Education Alliance",
+        amount: "$8,000",
+        deadline: "2025-07-15",
+        description: "Supporting international students pursuing higher education.",
+        requirements: "International student status, any major, 3.0+ GPA",
+        tags: ["international", "diversity", "global", "education"],
+        type: "need-based",
+        eligibilityGpa: "3.0",
+        eligibleFields: null,
+        eligibleLevels: ["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        isActive: true
+      },
+      {
+        id: randomUUID(),
+        title: "STEM Innovation Challenge",
+        organization: "Innovation Institute",
+        amount: "$12,000",
+        deadline: "2025-03-25",
+        description: "Funding innovative STEM projects and research.",
+        requirements: "STEM major, research project proposal, 3.3+ GPA",
+        tags: ["stem", "innovation", "research", "project"],
+        type: "merit-based",
+        eligibilityGpa: "3.3",
+        eligibleFields: ["Engineering", "Computer Science", "Mathematics", "Physics", "Chemistry", "Biology"],
+        eligibleLevels: ["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        isActive: true
+      }
+    ];
+
+    const allScholarships = [...scholarshipData, ...additionalScholarships];
+
     // Insert scholarships using direct SQL
-    for (const scholarship of scholarshipData) { // Insert all scholarships
+    for (const scholarship of allScholarships) { // Insert all scholarships
       await db.execute(sql`
         INSERT INTO scholarships (
           id, title, organization, amount, deadline, description, requirements,
@@ -532,7 +613,7 @@ export class DatabaseStorage implements IStorage {
       `);
     }
 
-    console.log(`Seeded ${scholarshipData.length} scholarships successfully`);
+    console.log(`Seeded ${allScholarships.length} scholarships successfully`);
   }
 }
 

@@ -7,6 +7,154 @@ import ProfileForm from "@/components/profile-form";
 import { Button } from "@/components/ui/button";
 import { Check, FileText, Shield, Users, DollarSign, Clock, Target, Info, X, Heart, User } from "lucide-react";
 
+// Sample opportunities data
+const sampleOpportunities = [
+  {
+    id: 1,
+    title: "Tech Innovation Grant",
+    organization: "TechForward Foundation",
+    amount: "$8,500",
+    deadline: "April 15, 2024",
+    matchScore: "94%",
+    description: "Supporting students in computer science and technology fields with demonstrated innovation potential.",
+    color: "from-blue-500 to-purple-600"
+  },
+  {
+    id: 2,
+    title: "Google Computer Science Scholarship",
+    organization: "Google Inc.",
+    amount: "$10,000",
+    deadline: "March 15, 2024",
+    matchScore: "88%",
+    description: "Supporting underrepresented students in computer science and technology fields.",
+    color: "from-green-500 to-blue-600"
+  },
+  {
+    id: 3,
+    title: "Microsoft LEAP Engineering Program",
+    organization: "Microsoft Corporation",
+    amount: "$25,000",
+    deadline: "April 1, 2024",
+    matchScore: "91%",
+    description: "Full-time program for students from non-traditional backgrounds in tech.",
+    color: "from-purple-500 to-pink-600"
+  },
+  {
+    id: 4,
+    title: "NASA Summer Internship",
+    organization: "NASA",
+    amount: "$7,500",
+    deadline: "January 31, 2024",
+    matchScore: "85%",
+    description: "Hands-on internship experience in aerospace engineering and space science.",
+    color: "from-red-500 to-orange-600"
+  },
+  {
+    id: 5,
+    title: "Women in STEM Scholarship",
+    organization: "STEM Foundation",
+    amount: "$5,000",
+    deadline: "May 1, 2024",
+    matchScore: "79%",
+    description: "Empowering women to pursue careers in science, technology, engineering, and mathematics.",
+    color: "from-teal-500 to-cyan-600"
+  }
+];
+
+function SampleOpportunityCard({ onStartAnalysis }: { onStartAnalysis: () => void }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const currentOpportunity = sampleOpportunities[currentIndex];
+
+  const handleAction = (action: 'pass' | 'save') => {
+    setIsAnimating(true);
+    
+    setTimeout(() => {
+      const nextIndex = (currentIndex + 1) % sampleOpportunities.length;
+      setCurrentIndex(nextIndex);
+      setIsAnimating(false);
+    }, 300);
+  };
+
+  const handlePass = () => handleAction('pass');
+  const handleSave = () => handleAction('save');
+
+  return (
+    <div className="max-w-md mx-auto">
+      <div className={`transition-all duration-300 ${isAnimating ? 'scale-95 opacity-0' : 'scale-100 opacity-100'}`}>
+        <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200 mb-8">
+          <div className="flex items-center mb-4">
+            <div className={`w-12 h-12 bg-gradient-to-br ${currentOpportunity.color} rounded-full flex items-center justify-center`}>
+              <User className="w-6 h-6 text-white" />
+            </div>
+            <div className="ml-3">
+              <h3 className="font-semibold text-slate-800">{currentOpportunity.title}</h3>
+              <p className="text-sm text-slate-500">{currentOpportunity.organization}</p>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <div className="flex justify-between">
+              <span className="text-slate-600">Amount:</span>
+              <span className="font-semibold text-green-600">{currentOpportunity.amount}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-600">Deadline:</span>
+              <span className="font-semibold text-slate-800">{currentOpportunity.deadline}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-600">Match Score:</span>
+              <span className="font-semibold text-blue-600">{currentOpportunity.matchScore}</span>
+            </div>
+            <p className="text-sm text-slate-600 mt-3">{currentOpportunity.description}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex justify-center space-x-8 mb-8">
+        <button 
+          onClick={handlePass}
+          className="p-4 rounded-full bg-white shadow-lg hover:bg-red-100 hover:scale-110 transition-all duration-200"
+          disabled={isAnimating}
+        >
+          <X className="w-10 h-10 text-red-500" />
+        </button>
+        <button 
+          onClick={handleSave}
+          className="p-4 rounded-full bg-white shadow-lg hover:bg-green-100 hover:scale-110 transition-all duration-200"
+          disabled={isAnimating}
+        >
+          <Heart className="w-10 h-10 text-green-500" />
+        </button>
+      </div>
+
+      {/* Progress indicator */}
+      <div className="flex justify-center space-x-2 mb-8">
+        {sampleOpportunities.map((_, index) => (
+          <div
+            key={index}
+            className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+              index === currentIndex ? 'bg-blue-600' : 'bg-slate-300'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Call to Action */}
+      <div className="text-center">
+        <p className="text-slate-600 mb-4">Ready to find your perfect scholarship matches?</p>
+        <Button 
+          onClick={onStartAnalysis}
+          className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+        >
+          Get Started Now
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [showProfileForm, setShowProfileForm] = useState(false);
 
@@ -153,57 +301,11 @@ export default function Home() {
           </div>
           
           {/* Sample Scholarship Cards */}
-          <div className="max-w-md mx-auto mb-8">
-            <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <User className="w-6 h-6 text-white" />
-                </div>
-                <div className="ml-3">
-                  <h3 className="font-semibold text-slate-800">Tech Innovation Grant</h3>
-                  <p className="text-sm text-slate-500">TechForward Foundation</p>
-                </div>
-              </div>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Amount:</span>
-                  <span className="font-semibold text-green-600">$8,500</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Deadline:</span>
-                  <span className="font-semibold text-slate-800">April 15, 2024</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Match Score:</span>
-                  <span className="font-semibold text-blue-600">94%</span>
-                </div>
-                <p className="text-sm text-slate-600 mt-3">Supporting students in computer science and technology fields with demonstrated innovation potential.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex justify-center space-x-8 mb-8">
-            <button className="p-4 rounded-full bg-white shadow-lg hover:bg-red-100 hover:scale-110 transition-all duration-200">
-              <X className="w-10 h-10 text-red-500" />
-            </button>
-            <button className="p-4 rounded-full bg-white shadow-lg hover:bg-green-100 hover:scale-110 transition-all duration-200">
-              <Heart className="w-10 h-10 text-green-500" />
-            </button>
-          </div>
-
-          {/* Call to Action */}
-          <div className="text-center">
-            <p className="text-slate-600 mb-4">Ready to find your perfect scholarship matches?</p>
-            <Button 
-              onClick={scrollToProfileForm}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-            >
-              Get Started Now
-            </Button>
-          </div>
+          <SampleOpportunityCard onStartAnalysis={scrollToProfileForm} />
         </div>
       </section>
+
+          
 
       {/* Footer */}
       <footer className="bg-slate-900 text-white py-12">

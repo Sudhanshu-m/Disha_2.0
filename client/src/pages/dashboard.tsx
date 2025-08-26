@@ -287,9 +287,9 @@ export default function Dashboard() {
             </Card>
 
             {/* Scholarship Cards */}
-            {filteredAndSortedMatches.length > 0 ? (
+            {filteredAndSortedMatches && filteredAndSortedMatches.length > 0 ? (
               <div className="grid lg:grid-cols-2 gap-8">
-                {filteredAndSortedMatches.map((match) => (
+                {(filteredAndSortedMatches || []).map((match) => (
                   <ScholarshipCard
                     key={match.id}
                     match={match}
@@ -324,7 +324,7 @@ export default function Dashboard() {
               </Card>
             )}
 
-            {filteredAndSortedMatches.length > 0 && (
+            {filteredAndSortedMatches && filteredAndSortedMatches.length > 0 && (
               <div className="text-center">
                 <Button variant="outline" className="px-8 py-3" data-testid="button-load-more">
                   Load More Opportunities

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import Navigation from "@/components/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +12,9 @@ import type { ScholarshipMatch, Scholarship } from "@shared/schema";
 export default function Matches() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   const profileId = localStorage.getItem('currentProfileId') || 'demo-profile';
@@ -68,10 +71,116 @@ export default function Matches() {
     }
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsDragging(true);
+    const touch = e.touches[0];
+    cardRef.current?.setAttribute('data-start-x', touch.clientX.toString());
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !cardRef.current) return;
+    
+    const touch = e.touches[0];
+    const startX = parseFloat(cardRef.current.getAttribute('data-start-x') || '0');
+    const currentX = touch.clientX;
+    const offset = currentX - startX;
+    
+    setDragOffset(offset);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
+    
+    setIsDragging(false);
+    
+    // Determine swipe direction based on offset
+    if (Math.abs(dragOffset) > 100) {
+      if (dragOffset > 0) {
+        handleSwipe('right');
+      } else {
+        handleSwipe('left');
+      }
+    }
+    
+    setDragOffset(0);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    cardRef.current?.setAttribute('data-start-x', e.clientX.toString());
+    e.preventDefault();
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !cardRef.current) return;
+    
+    const startX = parseFloat(cardRef.current.getAttribute('data-start-x') || '0');
+    const currentX = e.clientX;
+    const offset = currentX - startX;
+    
+    setDragOffset(offset);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    
+    setIsDragging(false);
+    
+    // Determine swipe direction based on offset
+    if (Math.abs(dragOffset) > 100) {
+      if (dragOffset > 0) {
+        handleSwipe('right');
+      } else {
+        handleSwipe('left');
+      }
+    }
+    
+    setDragOffset(0);
+  };
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [currentIndex, matches, isAnimating]);
+
+  useEffect(() => {
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (!isDragging || !cardRef.current) return;
+      
+      const startX = parseFloat(cardRef.current.getAttribute('data-start-x') || '0');
+      const currentX = e.clientX;
+      const offset = currentX - startX;
+      
+      setDragOffset(offset);
+    };
+
+    const handleGlobalMouseUp = () => {
+      if (!isDragging) return;
+      
+      setIsDragging(false);
+      
+      // Determine swipe direction based on offset
+      if (Math.abs(dragOffset) > 100) {
+        if (dragOffset > 0) {
+          handleSwipe('right');
+        } else {
+          handleSwipe('left');
+        }
+      }
+      
+      setDragOffset(0);
+    };
+
+    if (isDragging) {
+      window.addEventListener('mousemove', handleGlobalMouseMove);
+      window.addEventListener('mouseup', handleGlobalMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleGlobalMouseMove);
+      window.removeEventListener('mouseup', handleGlobalMouseUp);
+    };
+  }, [isDragging, dragOffset]);
 
   if (isLoading) {
     return (
@@ -155,10 +264,19 @@ export default function Matches() {
         {/* Swipe Card */}
         <div className="relative h-[600px] mb-8">
           <Card 
-            className={`absolute inset-0 shadow-xl border-2 transition-all duration-300 ${
+            ref={cardRef}
+            className={`absolute inset-0 shadow-xl border-2 transition-all duration-300 cursor-grab active:cursor-grabbing select-none ${
               isAnimating ? 'scale-95 opacity-0' : 'scale-100 opacity-100'
             }`}
+            style={{
+              transform: `translateX(${dragOffset}px) rotate(${dragOffset * 0.1}deg)`,
+              opacity: isDragging ? Math.max(0.7, 1 - Math.abs(dragOffset) / 300) : 1,
+            }}
             data-testid={`card-scholarship-${scholarship.id}`}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
           >
             <CardHeader className="pb-4">
               <div className="flex items-start justify-between mb-4">
@@ -252,10 +370,26 @@ export default function Matches() {
           </Button>
         </div>
 
-        {/* Keyboard Hints */}
+        {/* Swipe Indicators */}
+        {isDragging && (
+          <div className="fixed inset-0 pointer-events-none flex items-center justify-between px-8 z-10">
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-all ${
+              dragOffset > 50 ? 'bg-green-100 scale-110' : 'bg-gray-100'
+            }`}>
+              <Heart className={`w-8 h-8 ${dragOffset > 50 ? 'text-green-500' : 'text-gray-400'}`} />
+            </div>
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-all ${
+              dragOffset < -50 ? 'bg-red-100 scale-110' : 'bg-gray-100'
+            }`}>
+              <X className={`w-8 h-8 ${dragOffset < -50 ? 'text-red-500' : 'text-gray-400'}`} />
+            </div>
+          </div>
+        )}
+
+        {/* Interaction Hints */}
         <div className="text-center mt-6">
           <p className="text-sm text-slate-500">
-            Use keyboard: ← to pass, → to save
+            Swipe or drag left to pass, right to save • Use keyboard: ← →
           </p>
         </div>
       </div>

@@ -85,7 +85,7 @@ export default function Dashboard() {
       totalMatches,
       highMatch,
       dueThisMonth,
-      totalValue: `$${(totalValue / 1000).toFixed(0)}K`
+      totalValue: `₹${(totalValue / 1000).toFixed(0)}K`
     };
   };
 
@@ -246,9 +246,9 @@ export default function Dashboard() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">All Amounts</SelectItem>
-                        <SelectItem value="5000">Under $5,000</SelectItem>
-                        <SelectItem value="10000">$5,000 - $10,000</SelectItem>
-                        <SelectItem value="20000">Over $10,000</SelectItem>
+                        <SelectItem value="5000">Under ₹4,12,000</SelectItem>
+                        <SelectItem value="10000">₹4,12,000 - ₹8,25,000</SelectItem>
+                        <SelectItem value="20000">Over ₹8,25,000</SelectItem>
                       </SelectContent>
                     </Select>
 

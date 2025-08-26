@@ -297,7 +297,7 @@ export class DatabaseStorage implements IStorage {
       {
         title: "JP Morgan Chase Scholarship",
         organization: "JP Morgan Chase & Co.",
-        amount: "$20,000",
+        amount: "₹16,50,000",
         deadline: "2025-04-15",
         description: "Supporting students pursuing careers in finance and business technology.",
         requirements: "Business or finance major, 3.3+ GPA, leadership experience",
@@ -311,7 +311,7 @@ export class DatabaseStorage implements IStorage {
       {
         title: "Goldman Sachs Scholarship Program",
         organization: "Goldman Sachs Group",
-        amount: "$30,000",
+        amount: "₹24,75,000",
         deadline: "2025-03-01",
         description: "Comprehensive scholarship program for future finance leaders.",
         requirements: "Finance or economics major, exceptional academic record, internship experience",

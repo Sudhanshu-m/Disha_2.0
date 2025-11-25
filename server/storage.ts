@@ -300,6 +300,7 @@ export class DatabaseStorage implements IStorage {
 
       // Business & Finance Scholarships
       {
+        id: randomUUID(),
         title: "JP Morgan Chase Scholarship",
         organization: "JP Morgan Chase & Co.",
         amount: "₹16,50,000",
@@ -314,6 +315,7 @@ export class DatabaseStorage implements IStorage {
         isActive: true
       },
       {
+        id: randomUUID(),
         title: "Goldman Sachs Scholarship Program",
         organization: "Goldman Sachs Group",
         amount: "₹24,75,000",
@@ -330,6 +332,7 @@ export class DatabaseStorage implements IStorage {
 
       // Healthcare & Medical Scholarships
       {
+        id: randomUUID(),
         title: "American Medical Association Scholarship",
         organization: "American Medical Association",
         amount: "$35,000",
@@ -344,6 +347,7 @@ export class DatabaseStorage implements IStorage {
         isActive: true
       },
       {
+        id: randomUUID(),
         title: "Johnson & Johnson Nursing Scholarship",
         organization: "Johnson & Johnson",
         amount: "$12,000",
@@ -360,6 +364,7 @@ export class DatabaseStorage implements IStorage {
 
       // Environmental & Science Scholarships
       {
+        id: randomUUID(),
         title: "Environmental Protection Agency Scholarship",
         organization: "US Environmental Protection Agency",
         amount: "$18,000",
@@ -374,6 +379,7 @@ export class DatabaseStorage implements IStorage {
         isActive: true
       },
       {
+        id: randomUUID(),
         title: "National Science Foundation STEM Scholarship",
         organization: "National Science Foundation",
         amount: "$22,000",
@@ -390,6 +396,7 @@ export class DatabaseStorage implements IStorage {
 
       // Liberal Arts & Humanities
       {
+        id: randomUUID(),
         title: "Fulbright International Exchange Scholarship",
         organization: "US Department of State",
         amount: "$40,000",
@@ -404,6 +411,7 @@ export class DatabaseStorage implements IStorage {
         isActive: true
       },
       {
+        id: randomUUID(),
         title: "Humanities Research Council Grant",
         organization: "National Humanities Research Council",
         amount: "$15,000",
@@ -420,6 +428,7 @@ export class DatabaseStorage implements IStorage {
 
       // Need-based Scholarships
       {
+        id: randomUUID(),
         title: "First Generation College Student Scholarship",
         organization: "Educational Foundation",
         amount: "$8,000",
@@ -434,6 +443,7 @@ export class DatabaseStorage implements IStorage {
         isActive: true
       },
       {
+        id: randomUUID(),
         title: "Minority Student Success Fund",
         organization: "Diversity Education Alliance",
         amount: "$12,000",
@@ -450,6 +460,7 @@ export class DatabaseStorage implements IStorage {
 
       // Internship Opportunities
       {
+        id: randomUUID(),
         title: "NASA Summer Internship Program",
         organization: "National Aeronautics and Space Administration",
         amount: "$7,500",
@@ -464,6 +475,7 @@ export class DatabaseStorage implements IStorage {
         isActive: true
       },
       {
+        id: randomUUID(),
         title: "Meta Software Engineering Internship",
         organization: "Meta Platforms Inc.",
         amount: "$12,000",
@@ -478,6 +490,7 @@ export class DatabaseStorage implements IStorage {
         isActive: true
       },
       {
+        id: randomUUID(),
         title: "Tesla Engineering Co-op Program",
         organization: "Tesla Inc.",
         amount: "$15,000",
@@ -492,6 +505,7 @@ export class DatabaseStorage implements IStorage {
         isActive: true
       },
       {
+        id: randomUUID(),
         title: "Netflix Content Strategy Internship",
         organization: "Netflix Inc.",
         amount: "$8,000",
@@ -588,29 +602,23 @@ export class DatabaseStorage implements IStorage {
 
     const allScholarships = [...scholarshipData, ...additionalScholarships];
 
-    // Insert scholarships using direct SQL
-    for (const scholarship of allScholarships) { // Insert all scholarships
-      await db.execute(sql`
-        INSERT INTO scholarships (
-          id, title, organization, amount, deadline, description, requirements,
-          tags, type, eligibility_gpa, eligible_fields, eligible_levels, is_active, created_at
-        ) VALUES (
-          ${scholarship.id},
-          ${scholarship.title},
-          ${scholarship.organization}, 
-          ${scholarship.amount},
-          ${scholarship.deadline},
-          ${scholarship.description},
-          ${scholarship.requirements},
-          ${JSON.stringify(scholarship.tags)},
-          ${scholarship.type},
-          ${scholarship.eligibilityGpa},
-          ${scholarship.eligibleFields ? JSON.stringify(scholarship.eligibleFields) : null},
-          ${scholarship.eligibleLevels ? JSON.stringify(scholarship.eligibleLevels) : null},
-          ${scholarship.isActive ? 1 : 0},
-          CURRENT_TIMESTAMP
-        )
-      `);
+    // Insert scholarships using Drizzle ORM
+    for (const scholarship of allScholarships) {
+      await db.insert(scholarships).values({
+        id: scholarship.id,
+        title: scholarship.title,
+        organization: scholarship.organization,
+        amount: scholarship.amount,
+        deadline: scholarship.deadline,
+        description: scholarship.description,
+        requirements: scholarship.requirements,
+        tags: scholarship.tags,
+        type: scholarship.type,
+        eligibilityGpa: scholarship.eligibilityGpa,
+        eligibleFields: scholarship.eligibleFields,
+        eligibleLevels: scholarship.eligibleLevels,
+        isActive: scholarship.isActive
+      });
     }
 
     console.log(`Seeded ${allScholarships.length} scholarships successfully`);

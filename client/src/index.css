@@ -5,38 +5,38 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(10, 30%, 97%);
-  --foreground: hsl(10, 20%, 15%);
+  --background: hsl(280, 30%, 96%);
+  --foreground: hsl(280, 10%, 25%);
   --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(10, 20%, 15%);
+  --card-foreground: hsl(280, 10%, 25%);
   --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(10, 20%, 15%);
-  --primary: hsl(355, 70%, 55%);
+  --popover-foreground: hsl(280, 10%, 25%);
+  --primary: hsl(270, 45%, 68%);
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(340, 80%, 52%);
+  --secondary: hsl(350, 50%, 75%);
   --secondary-foreground: hsl(0, 0%, 100%);
-  --muted: hsl(10, 20%, 88%);
-  --muted-foreground: hsl(10, 10%, 45%);
-  --accent: hsl(10, 20%, 88%);
-  --accent-foreground: hsl(10, 10%, 45%);
+  --muted: hsl(280, 25%, 90%);
+  --muted-foreground: hsl(280, 8%, 50%);
+  --accent: hsl(280, 25%, 90%);
+  --accent-foreground: hsl(280, 8%, 50%);
   --destructive: hsl(0, 84.2%, 60.2%);
   --destructive-foreground: hsl(0, 0%, 100%);
-  --border: hsl(10, 20%, 88%);
-  --input: hsl(10, 20%, 88%);
-  --ring: hsl(355, 70%, 55%);
-  --chart-1: hsl(355, 70%, 55%);
-  --chart-2: hsl(340, 80%, 52%);
-  --chart-3: hsl(0, 75%, 60%);
-  --chart-4: hsl(345, 75%, 48%);
-  --chart-5: hsl(350, 70%, 50%);
+  --border: hsl(280, 25%, 90%);
+  --input: hsl(280, 25%, 90%);
+  --ring: hsl(270, 45%, 68%);
+  --chart-1: hsl(270, 45%, 68%);
+  --chart-2: hsl(350, 50%, 75%);
+  --chart-3: hsl(280, 40%, 70%);
+  --chart-4: hsl(260, 35%, 65%);
+  --chart-5: hsl(340, 45%, 72%);
   --sidebar: hsl(0, 0%, 100%);
-  --sidebar-foreground: hsl(10, 20%, 15%);
-  --sidebar-primary: hsl(355, 70%, 55%);
+  --sidebar-foreground: hsl(280, 10%, 25%);
+  --sidebar-primary: hsl(270, 45%, 68%);
   --sidebar-primary-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent: hsl(10, 20%, 88%);
-  --sidebar-accent-foreground: hsl(10, 10%, 45%);
-  --sidebar-border: hsl(10, 20%, 88%);
-  --sidebar-ring: hsl(355, 70%, 55%);
+  --sidebar-accent: hsl(280, 25%, 90%);
+  --sidebar-accent-foreground: hsl(280, 8%, 50%);
+  --sidebar-border: hsl(280, 25%, 90%);
+  --sidebar-ring: hsl(270, 45%, 68%);
   --font-sans: 'Inter', sans-serif;
   --font-serif: 'Georgia', serif;
   --font-mono: 'Menlo', monospace;
@@ -44,38 +44,38 @@
 }
 
 .dark {
-  --background: hsl(10, 20%, 12%);
-  --foreground: hsl(10, 20%, 90%);
-  --card: hsl(10, 20%, 20%);
-  --card-foreground: hsl(10, 20%, 90%);
-  --popover: hsl(10, 20%, 20%);
-  --popover-foreground: hsl(10, 20%, 90%);
-  --primary: hsl(355, 85%, 65%);
+  --background: hsl(280, 15%, 18%);
+  --foreground: hsl(280, 15%, 85%);
+  --card: hsl(280, 15%, 25%);
+  --card-foreground: hsl(280, 15%, 85%);
+  --popover: hsl(280, 15%, 25%);
+  --popover-foreground: hsl(280, 15%, 85%);
+  --primary: hsl(270, 50%, 72%);
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(340, 90%, 60%);
+  --secondary: hsl(350, 55%, 78%);
   --secondary-foreground: hsl(0, 0%, 100%);
-  --muted: hsl(10, 15%, 35%);
-  --muted-foreground: hsl(10, 10%, 65%);
-  --accent: hsl(10, 15%, 35%);
-  --accent-foreground: hsl(10, 20%, 90%);
+  --muted: hsl(280, 15%, 40%);
+  --muted-foreground: hsl(280, 10%, 70%);
+  --accent: hsl(280, 15%, 40%);
+  --accent-foreground: hsl(280, 15%, 85%);
   --destructive: hsl(0, 70%, 50%);
   --destructive-foreground: hsl(0, 0%, 100%);
-  --border: hsl(10, 15%, 35%);
-  --input: hsl(10, 15%, 35%);
-  --ring: hsl(355, 85%, 65%);
-  --chart-1: hsl(355, 85%, 65%);
-  --chart-2: hsl(340, 90%, 60%);
-  --chart-3: hsl(0, 80%, 65%);
-  --chart-4: hsl(345, 85%, 55%);
-  --chart-5: hsl(350, 80%, 60%);
-  --sidebar: hsl(10, 20%, 20%);
-  --sidebar-foreground: hsl(10, 20%, 90%);
-  --sidebar-primary: hsl(355, 85%, 65%);
+  --border: hsl(280, 15%, 40%);
+  --input: hsl(280, 15%, 40%);
+  --ring: hsl(270, 50%, 72%);
+  --chart-1: hsl(270, 50%, 72%);
+  --chart-2: hsl(350, 55%, 78%);
+  --chart-3: hsl(280, 45%, 74%);
+  --chart-4: hsl(260, 40%, 70%);
+  --chart-5: hsl(340, 50%, 76%);
+  --sidebar: hsl(280, 15%, 25%);
+  --sidebar-foreground: hsl(280, 15%, 85%);
+  --sidebar-primary: hsl(270, 50%, 72%);
   --sidebar-primary-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent: hsl(10, 15%, 35%);
-  --sidebar-accent-foreground: hsl(10, 20%, 90%);
-  --sidebar-border: hsl(10, 15%, 35%);
-  --sidebar-ring: hsl(355, 85%, 65%);
+  --sidebar-accent: hsl(280, 15%, 40%);
+  --sidebar-accent-foreground: hsl(280, 15%, 85%);
+  --sidebar-border: hsl(280, 15%, 40%);
+  --sidebar-ring: hsl(270, 50%, 72%);
 }
 
 @layer base {
@@ -98,11 +98,11 @@
 
 @layer components {
   .gradient-primary {
-    background: hsl(355, 70%, 55%);
+    background: hsl(270, 45%, 68%);
   }
 
   .text-gradient {
-    background: hsl(355, 70%, 55%);
+    background: hsl(270, 45%, 68%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

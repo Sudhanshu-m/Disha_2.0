@@ -21,10 +21,17 @@ export default function Dashboard() {
   });
   const [sortBy, setSortBy] = useState("matchScore");
   const { toast } = useToast();
+  const [location, navigate] = require("wouter").useLocation();
 
   // Get profile ID from localStorage - in a real app, this would come from authentication
-  const profileId = localStorage.getItem('currentProfileId') || 'demo-profile';
-  const validProfileId = profileId !== 'demo-profile' ? profileId : null;
+  const profileId = localStorage.getItem('currentProfileId') || null;
+  const validProfileId = profileId ? profileId : null;
+  
+  // Redirect to home if not authenticated
+  if (!profileId) {
+    setTimeout(() => navigate('/'), 0);
+    return null;
+  }
 
 
   const { data: matches, isLoading } = useQuery<(ScholarshipMatch & { scholarship: Scholarship })[]>({

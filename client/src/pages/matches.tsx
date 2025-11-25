@@ -16,8 +16,15 @@ export default function Matches() {
   const [isDragging, setIsDragging] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const [location, navigate] = require("wouter").useLocation();
 
-  const profileId = localStorage.getItem('currentProfileId') || 'demo-profile';
+  const profileId = localStorage.getItem('currentProfileId') || null;
+  
+  // Redirect to home if not authenticated
+  if (!profileId) {
+    setTimeout(() => navigate('/'), 0);
+    return null;
+  }
 
   const { data: matches, isLoading } = useQuery<(ScholarshipMatch & { scholarship: Scholarship })[]>({
     queryKey: ['/api/matches', profileId, 'new'],

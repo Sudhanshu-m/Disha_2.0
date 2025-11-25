@@ -43,8 +43,8 @@ export default function ScholarshipCard({ match, onFavorite, onApply }: Scholars
             </p>
             <div className="flex items-center space-x-4 text-sm text-slate-500">
               <span className="flex items-center space-x-1">
-                <DollarSign className="w-4 h-4" />
-                <span data-testid={`text-amount-${scholarship.id}`}>{scholarship.amount}</span>
+                <span className="w-4 h-4 flex items-center justify-center">₹</span>
+                <span data-testid={`text-amount-${scholarship.id}`}>{scholarship.amount?.replace('$', '₹') || '₹0'}</span>
               </span>
               <span className="flex items-center space-x-1">
                 <Clock className="w-4 h-4" />

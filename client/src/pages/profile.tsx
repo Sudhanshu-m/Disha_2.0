@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import Navigation from "@/components/navigation";
 import ProfileForm from "@/components/profile-form";
-import ProfilePictureUpload from "@/components/profile-picture-upload";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -133,22 +132,6 @@ export default function Profile() {
         </div>
 
         <div className="grid gap-6">
-          {/* Profile Picture Section */}
-          <Card>
-            <CardContent className="pt-6">
-              {profile && (
-                <ProfilePictureUpload
-                  profileId={profile.id}
-                  currentPicture={profile.profilePicture || undefined}
-                  userName={profile.name}
-                  onUploadSuccess={() => {
-                    queryClient.invalidateQueries({ queryKey: ['/api/profile', profile.userId] });
-                  }}
-                />
-              )}
-            </CardContent>
-          </Card>
-
           {/* Basic Information */}
           <Card>
             <CardHeader>

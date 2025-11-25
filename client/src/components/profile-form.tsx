@@ -25,6 +25,7 @@ const profileFormSchema = z.object({
         email.endsWith('@rediffmail.com'),
       "enter a valid email"
     ),
+  profilePicture: z.string().optional(),
   educationLevel: z.string().min(1, "Education level is required"),
   fieldOfStudy: z.string().min(1, "Field of study is required"),
   gpa: z.string()
@@ -313,7 +314,6 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          // Trigger validation immediately
                           form.trigger("email");
                         }}
                         onBlur={(e) => {
@@ -323,6 +323,42 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
                         data-testid="input-email"
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="profilePicture"
+                render={({ field: { value, ...field } }) => (
+                  <FormItem>
+                    <FormLabel>Profile Picture</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onloadend = () => {
+                              field.onChange(reader.result as string);
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                        data-testid="input-profile-picture"
+                      />
+                    </FormControl>
+                    {value && (
+                      <img 
+                        src={value} 
+                        alt="Profile preview" 
+                        className="mt-2 w-20 h-20 rounded-lg object-cover"
+                        data-testid="img-profile-preview"
+                      />
+                    )}
                     <FormMessage />
                   </FormItem>
                 )}

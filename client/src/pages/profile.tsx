@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import Navigation from "@/components/navigation";
 import ProfileForm from "@/components/profile-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { User, GraduationCap, Target, MapPin, Calendar } from "lucide-react";
+import { User, GraduationCap, Target, MapPin, Calendar, LogOut } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { StudentProfile } from "@shared/schema";
@@ -13,9 +14,20 @@ import type { StudentProfile } from "@shared/schema";
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
+  const [, navigate] = useLocation();
 
   // Get user ID from localStorage - in a real app, this would come from authentication
   const userId = localStorage.getItem('currentUserId') || 'temp-user-id';
+
+  const handleLogout = () => {
+    localStorage.removeItem('currentUserId');
+    queryClient.clear();
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out.",
+    });
+    navigate('/');
+  };
 
   const { data: profile, isLoading } = useQuery<StudentProfile>({
     queryKey: ['/api/profile', userId],
@@ -127,6 +139,15 @@ export default function Profile() {
             </Button>
             <Button onClick={() => setIsEditing(true)} data-testid="button-edit-profile">
               Edit Profile
+            </Button>
+            <Button 
+              variant="destructive" 
+              onClick={handleLogout}
+              className="flex items-center gap-2"
+              data-testid="button-logout"
+            >
+              <LogOut className="w-4 h-4" />
+              Logout
             </Button>
           </div>
         </div>

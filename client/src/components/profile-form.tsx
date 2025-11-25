@@ -165,12 +165,32 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
   });
 
   const onSubmit = async (data: ProfileFormData) => {
+    // Check for form errors
+    if (Object.keys(form.formState.errors).length > 0) {
+      toast({
+        title: "Validation Error",
+        description: "Please fix all errors before submitting. Check the red error messages.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     // Validate required fields
     if (!data.name || !data.email || !data.educationLevel || !data.fieldOfStudy || 
         !data.graduationYear || !data.financialNeed || !data.location) {
       toast({
         title: "Validation Error",
         description: "Please fill in all required fields before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Extra validation for email
+    if (!data.email.endsWith('@gmail.com') && !data.email.endsWith('@yahoo.com') && !data.email.endsWith('@rediffmail.com')) {
+      toast({
+        title: "Invalid Email",
+        description: "Email must be from @gmail.com, @yahoo.com, or @rediffmail.com",
         variant: "destructive",
       });
       return;

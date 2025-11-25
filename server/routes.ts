@@ -43,6 +43,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       console.log("Creating profile with data:", req.body);
       
+      // Validate email on backend
+      const email = req.body.profile?.email;
+      if (!email || (!email.endsWith('@gmail.com') && !email.endsWith('@yahoo.com') && !email.endsWith('@rediffmail.com'))) {
+        return res.status(400).json({ message: "Email must be from @gmail.com, @yahoo.com, or @rediffmail.com" });
+      }
+
+      // Validate GPA if provided
+      if (req.body.profile?.gpa && !/^[0-9]+(\.[0-9]{1,2})?$/.test(req.body.profile.gpa)) {
+        return res.status(400).json({ message: "GPA must be a valid number" });
+      }
+      
       const profileData = insertStudentProfileSchema.parse(req.body.profile);
       const userId = req.body.userId;
       
@@ -68,7 +79,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(profile);
     } catch (error: any) {
       console.error("Error creating profile:", error);
-      res.status(500).json({ message: "Failed to create profile", error: error.message });
+      res.status(400).json({ message: "Failed to create profile", error: error.message });
     }
   });
 

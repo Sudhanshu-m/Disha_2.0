@@ -46,7 +46,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Validate email on backend
       const email = req.body.profile?.email;
       if (!email || (!email.endsWith('@gmail.com') && !email.endsWith('@yahoo.com') && !email.endsWith('@rediffmail.com'))) {
-        return res.status(400).json({ message: "Email must be from @gmail.com, @yahoo.com, or @rediffmail.com" });
+        return res.status(400).json({ message: "enter a valid email" });
       }
 
       // Validate GPA if provided

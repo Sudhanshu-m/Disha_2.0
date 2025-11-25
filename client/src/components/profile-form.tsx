@@ -17,13 +17,13 @@ import { useLocation } from "wouter";
 const profileFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string()
-    .email("Please enter a valid email address")
+    .email("enter a valid email")
     .refine(
       (email) => 
         email.endsWith('@gmail.com') || 
         email.endsWith('@yahoo.com') || 
         email.endsWith('@rediffmail.com'),
-      "Email must be from @gmail.com, @yahoo.com, or @rediffmail.com"
+      "enter a valid email"
     ),
   educationLevel: z.string().min(1, "Education level is required"),
   fieldOfStudy: z.string().min(1, "Field of study is required"),

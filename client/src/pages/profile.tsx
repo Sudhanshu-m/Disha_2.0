@@ -123,27 +123,32 @@ export default function Profile() {
       <Navigation />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
           <div>
             <h1 className="text-3xl font-bold text-slate-800 mb-4">Your Profile</h1>
             <p className="text-lg text-slate-600">Manage your academic and personal information</p>
           </div>
-          <div className="space-x-4">
+          <div className="flex flex-wrap gap-3 w-full md:w-auto">
             <Button 
               variant="outline"
               onClick={() => generateMatchesMutation.mutate()}
               disabled={generateMatchesMutation.isPending}
               data-testid="button-refresh-matches"
+              className="flex-1 md:flex-none"
             >
               {generateMatchesMutation.isPending ? "Updating..." : "Refresh Matches"}
             </Button>
-            <Button onClick={() => setIsEditing(true)} data-testid="button-edit-profile">
+            <Button 
+              onClick={() => setIsEditing(true)} 
+              data-testid="button-edit-profile"
+              className="flex-1 md:flex-none"
+            >
               Edit Profile
             </Button>
             <Button 
               variant="destructive" 
               onClick={handleLogout}
-              className="flex items-center gap-2"
+              className="flex items-center justify-center gap-2 flex-1 md:flex-none"
               data-testid="button-logout"
             >
               <LogOut className="w-4 h-4" />

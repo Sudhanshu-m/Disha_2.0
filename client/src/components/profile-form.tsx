@@ -163,7 +163,7 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
       if (onComplete) {
         onComplete();
       } else {
-        navigate("/matches");
+        navigate("/profile");
       }
     },
     onError: (error) => {
@@ -177,7 +177,7 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
       if (onComplete) {
         onComplete();
       } else {
-        navigate("/matches");
+        navigate("/profile");
       }
     },
   });
@@ -331,9 +331,9 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
               <FormField
                 control={form.control}
                 name="profilePicture"
-                render={({ field: { value, ...field } }) => (
+                render={({ field: { value, onChange, ...field } }) => (
                   <FormItem>
-                    <FormLabel>Profile Picture</FormLabel>
+                    <FormLabel>Profile Picture <span className="text-xs text-slate-500">(Optional)</span></FormLabel>
                     <FormControl>
                       <Input 
                         type="file"
@@ -343,11 +343,12 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
                           if (file) {
                             const reader = new FileReader();
                             reader.onloadend = () => {
-                              field.onChange(reader.result as string);
+                              onChange(reader.result as string);
                             };
                             reader.readAsDataURL(file);
                           }
                         }}
+                        {...field}
                         data-testid="input-profile-picture"
                       />
                     </FormControl>

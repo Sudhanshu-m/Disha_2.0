@@ -34,8 +34,18 @@ const profileFormSchema = z.object({
       "GPA must be a number (e.g., 3.75)"
     ),
   graduationYear: z.string().min(1, "Graduation year is required"),
-  skills: z.string().optional(),
-  activities: z.string().optional(),
+  skills: z.string()
+    .optional()
+    .refine(
+      (skills) => !skills || skills.length > 10,
+      "Skills must be more than 10 characters"
+    ),
+  activities: z.string()
+    .optional()
+    .refine(
+      (activities) => !activities || activities.length > 10,
+      "Activities must be more than 10 characters"
+    ),
   financialNeed: z.string().min(1, "Financial need is required"),
   location: z.string().min(1, "Location is required"),
 });

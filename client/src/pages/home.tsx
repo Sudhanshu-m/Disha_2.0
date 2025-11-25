@@ -292,21 +292,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sample Opportunities Section */}
-      <section className="py-16 bg-slate-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-800 mb-4">Discover Opportunities</h2>
-            <p className="text-lg text-slate-600">Swipe left to pass, right to save for later</p>
-          </div>
-          
-          {/* Sample Scholarship Cards */}
-          <SampleOpportunityCard onStartAnalysis={scrollToProfileForm} />
-        </div>
-      </section>
-
-          
-
       {/* Footer */}
       <footer className="bg-slate-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

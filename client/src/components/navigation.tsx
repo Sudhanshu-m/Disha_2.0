@@ -40,8 +40,12 @@ export default function Navigation() {
               Matches
             </Link>
             <Link
-              href="/#opportunities"
-              className="text-slate-600 hover:text-primary transition-colors"
+              href="/opportunities"
+              className={`transition-colors ${
+                location === '/opportunities'
+                  ? 'text-primary'
+                  : 'text-slate-600 hover:text-primary'
+              }`}
               data-testid="link-opportunities"
             >
               Opportunities

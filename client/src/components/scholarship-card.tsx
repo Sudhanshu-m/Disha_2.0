@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Heart, DollarSign, Clock } from "lucide-react";
+import { Heart, Clock } from "lucide-react";
 import type { ScholarshipMatch, Scholarship } from "@shared/schema";
 
 interface ScholarshipCardProps {

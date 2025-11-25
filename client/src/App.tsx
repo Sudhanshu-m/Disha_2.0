@@ -7,6 +7,7 @@ import Home from "@/pages/home";
 import Dashboard from "@/pages/dashboard";
 import Profile from "@/pages/profile";
 import Matches from "@/pages/matches";
+import Opportunities from "@/pages/opportunities";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/profile" component={Profile} />
       <Route path="/matches" component={Matches} />
+      <Route path="/opportunities" component={Opportunities} />
       <Route component={NotFound} />
     </Switch>
   );

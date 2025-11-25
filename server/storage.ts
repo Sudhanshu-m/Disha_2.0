@@ -610,8 +610,8 @@ export class DatabaseStorage implements IStorage {
     ];
 
     // Generate 100 unique scholarships
-    const uniqueScholarships = [
-      { title: "Academic Excellence Grant", organization: "Merit Foundation", amount: "₹50,000", type: "merit-based" },
+    const uniqueScholarships: any[] = [
+      { title: "Academic Excellence Grant", organization: "Merit Foundation", amount: "₹50,000", type: "merit-based", deadline: "2025-06-30", description: "Scholarship for academic excellence", requirements: "GPA 3.0+", tags: JSON.stringify(["merit", "academic"]), eligibilityGpa: "3.0", eligibleFields: JSON.stringify([]), eligibleLevels: JSON.stringify(["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]), isActive: true },
       { title: "Future Leaders Scholarship", organization: "Global Leaders Institute", amount: "₹75,000", type: "merit-based" },
       { title: "Women in Technology Award", organization: "Tech Women Forward", amount: "₹60,000", type: "field-specific" },
       { title: "Renewable Energy Scholars", organization: "Green Energy Council", amount: "₹80,000", type: "field-specific" },

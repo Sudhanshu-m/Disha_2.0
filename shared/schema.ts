@@ -16,8 +16,6 @@ export const studentProfiles = sqliteTable("student_profiles", {
   activities: text("activities"),
   financialNeed: text("financial_need").notNull(),
   location: text("location").notNull(),
-  createdAt: text("created_at").default(sql`datetime('now')`).notNull(),
-  updatedAt: text("updated_at").default(sql`datetime('now')`).notNull(),
 });
 
 export const scholarships = sqliteTable("scholarships", {
@@ -28,13 +26,12 @@ export const scholarships = sqliteTable("scholarships", {
   deadline: text("deadline").notNull(),
   description: text("description").notNull(),
   requirements: text("requirements").notNull(),
-  tags: text("tags").notNull(), // JSON string of array
-  type: text("type").notNull(), // merit-based, need-based, field-specific, etc.
+  tags: text("tags").notNull(),
+  type: text("type").notNull(),
   eligibilityGpa: text("eligibility_gpa"),
-  eligibleFields: text("eligible_fields"), // JSON string of array
-  eligibleLevels: text("eligible_levels"), // JSON string of array
+  eligibleFields: text("eligible_fields"),
+  eligibleLevels: text("eligible_levels"),
   isActive: integer("is_active", { mode: 'boolean' }).default(true).notNull(),
-  createdAt: text("created_at").default(sql`datetime('now')`).notNull(),
 });
 
 export const scholarshipMatches = sqliteTable("scholarship_matches", {
@@ -43,8 +40,7 @@ export const scholarshipMatches = sqliteTable("scholarship_matches", {
   scholarshipId: text("scholarship_id").references(() => scholarships.id).notNull(),
   matchScore: integer("match_score").notNull(),
   aiReasoning: text("ai_reasoning"),
-  status: text("status").default("new").notNull(), // new, favorited, applied, rejected
-  createdAt: text("created_at").default(sql`datetime('now')`).notNull(),
+  status: text("status").default("new").notNull(),
 });
 
 export const applicationGuidance = sqliteTable("application_guidance", {
@@ -52,9 +48,8 @@ export const applicationGuidance = sqliteTable("application_guidance", {
   profileId: text("profile_id").references(() => studentProfiles.id).notNull(),
   scholarshipId: text("scholarship_id").references(() => scholarships.id).notNull(),
   essayTips: text("essay_tips"),
-  checklist: text("checklist"), // JSON string
+  checklist: text("checklist"),
   improvementSuggestions: text("improvement_suggestions"),
-  createdAt: text("created_at").default(sql`datetime('now')`).notNull(),
 });
 
 export const insertStudentProfileSchema = createInsertSchema(studentProfiles).omit({

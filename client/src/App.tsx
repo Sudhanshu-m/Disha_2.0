@@ -9,12 +9,16 @@ import Profile from "@/pages/profile";
 import Matches from "@/pages/matches";
 import Opportunities from "@/pages/opportunities";
 import Guidance from "@/pages/guidance";
+import Login from "@/pages/login";
+import Signup from "@/pages/signup";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Signup} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/profile" component={Profile} />
       <Route path="/matches" component={Matches} />

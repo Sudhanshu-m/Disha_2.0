@@ -6,7 +6,7 @@ import { z } from "zod";
 
 export const users = sqliteTable("users", {
   id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
-  username: text("username").notNull().unique(),
+  email: text("email").notNull().unique(),
   password: text("password").notNull(),
 });
 
@@ -65,8 +65,14 @@ export const applicationGuidance = sqliteTable("application_guidance", {
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
+  email: true,
   password: true,
+}).extend({
+  email: z.string().email("Invalid email").refine(
+    email => email.endsWith('@gmail.com') || email.endsWith('@yahoo.com') || email.endsWith('@rediffmail.com'),
+    "Email must be from @gmail.com, @yahoo.com, or @rediffmail.com"
+  ),
+  password: z.string().min(6, "Password must be at least 6 characters")
 });
 
 export const insertStudentProfileSchema = createInsertSchema(studentProfiles).omit({

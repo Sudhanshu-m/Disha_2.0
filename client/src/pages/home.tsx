@@ -188,6 +188,22 @@ export default function Home() {
         buttonText={hasProfile ? "Go to Profile" : "Start Your Analysis"}
       />
 
+      {/* Auth Links */}
+      {!hasProfile && (
+        <div className="flex justify-center gap-4 py-6 bg-white">
+          <Link href="/login">
+            <Button variant="outline" data-testid="link-login-home">
+              Log In
+            </Button>
+          </Link>
+          <Link href="/signup">
+            <Button className="bg-primary hover:bg-primary/90" data-testid="link-signup-home">
+              Sign Up
+            </Button>
+          </Link>
+        </div>
+      )}
+
       {/* Profile Creation Section */}
       {showProfileForm && (
         <section id="profile-section" className="py-16 bg-white">

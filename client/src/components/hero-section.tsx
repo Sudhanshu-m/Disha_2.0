@@ -3,9 +3,10 @@ import { Check } from "lucide-react";
 
 interface HeroSectionProps {
   onStartAnalysis: () => void;
+  buttonText?: string;
 }
 
-export default function HeroSection({ onStartAnalysis }: HeroSectionProps) {
+export default function HeroSection({ onStartAnalysis, buttonText = "Start Your Analysis" }: HeroSectionProps) {
   return (
     <section className="bg-gradient-to-r from-primary to-secondary text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,15 +25,7 @@ export default function HeroSection({ onStartAnalysis }: HeroSectionProps) {
                 className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
                 data-testid="button-start-analysis"
               >
-                Start Your Analysis
-              </Button>
-              <Button 
-                variant="outline"
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
-                onClick={() => window.location.href = '/matches'}
-                data-testid="button-sample-results"
-              >
-                View Sample Results
+                {buttonText}
               </Button>
             </div>
             <div className="mt-8 flex items-center space-x-6 text-blue-100">

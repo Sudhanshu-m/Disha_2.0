@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import Navigation from "@/components/navigation";
 import HeroSection from "@/components/hero-section";
@@ -157,6 +157,20 @@ function SampleOpportunityCard({ onStartAnalysis }: { onStartAnalysis: () => voi
 
 export default function Home() {
   const [showProfileForm, setShowProfileForm] = useState(false);
+  const [hasProfile, setHasProfile] = useState(false);
+
+  useEffect(() => {
+    const profileId = localStorage.getItem('currentProfileId');
+    setHasProfile(!!profileId);
+  }, []);
+
+  const handleHeroButtonClick = () => {
+    if (hasProfile) {
+      window.location.href = '/profile';
+    } else {
+      scrollToProfileForm();
+    }
+  };
 
   const scrollToProfileForm = () => {
     setShowProfileForm(true);
@@ -169,7 +183,10 @@ export default function Home() {
     <div className="min-h-screen bg-slate-50">
       <Navigation />
 
-      <HeroSection onStartAnalysis={scrollToProfileForm} />
+      <HeroSection 
+        onStartAnalysis={handleHeroButtonClick}
+        buttonText={hasProfile ? "Go to Profile" : "Start Your Analysis"}
+      />
 
       {/* Profile Creation Section */}
       {showProfileForm && (

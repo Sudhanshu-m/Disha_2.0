@@ -94,7 +94,10 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
 
   const createProfileMutation = useMutation({
     mutationFn: async (data: ProfileFormData) => {
-      const userId = `user-${Date.now()}`; // Generate a unique user ID
+      const userId = localStorage.getItem('userId'); // Get actual user ID from signup
+      if (!userId) {
+        throw new Error("User not authenticated. Please log in first.");
+      }
       console.log("Sending profile data:", { profile: data, userId });
       const response = await apiRequest("POST", "/api/profile", {
         profile: data,

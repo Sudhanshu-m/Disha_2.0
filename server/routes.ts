@@ -55,8 +55,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const profileData = insertStudentProfileSchema.parse(req.body.profile);
+      const userId = req.body.userId;
       
-      const profile = await storage.createStudentProfile(profileData);
+      if (!userId) {
+        return res.status(400).json({ message: "User ID is required" });
+      }
+
+      // Check if user exists, create if not
+      let user = await storage.getUserByUsername(userId);
+      if (!user) {
+        user = await storage.createUser({
+          username: userId,
+          password: "temp-password" // In a real app, this would be properly handled
+        });
+      }
+
+      const profile = await storage.createStudentProfile({
+        ...profileData,
+        userId: user.id
+      });
 
       console.log("Profile created successfully:", profile);
       res.json(profile);

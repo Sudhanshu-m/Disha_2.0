@@ -5,7 +5,7 @@ import ProfileForm from "@/components/profile-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { User, GraduationCap, Target, MapPin, DollarSign, Calendar } from "lucide-react";
+import { User, GraduationCap, Target, MapPin, Calendar } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { StudentProfile } from "@shared/schema";
@@ -221,7 +221,7 @@ export default function Profile() {
               <div>
                 <label className="text-sm font-medium text-slate-700">Financial Need</label>
                 <div className="flex items-center space-x-2 mt-1">
-                  <DollarSign className="w-4 h-4 text-slate-500" />
+                  <span className="text-slate-500 font-semibold">₹</span>
                   <Badge 
                     variant="secondary" 
                     className={

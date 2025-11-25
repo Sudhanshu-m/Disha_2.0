@@ -75,6 +75,7 @@ export const insertStudentProfileSchema = createInsertSchema(studentProfiles).om
   userId: true,
   createdAt: true,
   updatedAt: true,
+  profilePicture: true,
 });
 
 export const insertScholarshipSchema = createInsertSchema(scholarships).omit({

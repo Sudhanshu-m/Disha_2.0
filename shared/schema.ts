@@ -15,7 +15,6 @@ export const studentProfiles = sqliteTable("student_profiles", {
   userId: text("user_id").references(() => users.id).notNull(),
   name: text("name").notNull(),
   email: text("email").notNull(),
-  profilePicture: text("profile_picture"),
   educationLevel: text("education_level").notNull(),
   fieldOfStudy: text("field_of_study").notNull(),
   gpa: text("gpa"),

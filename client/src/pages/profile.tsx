@@ -140,30 +140,14 @@ export default function Profile() {
                 <span>Basic Information</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex flex-col items-center mb-6">
-                {profile?.profilePicture ? (
-                  <img 
-                    src={profile.profilePicture} 
-                    alt={profile.name} 
-                    className="w-32 h-32 rounded-full object-cover border-4 border-primary shadow-lg"
-                    data-testid="img-profile-display"
-                  />
-                ) : (
-                  <div className="w-32 h-32 rounded-full bg-slate-200 flex items-center justify-center border-4 border-slate-300">
-                    <User className="w-12 h-12 text-slate-400" />
-                  </div>
-                )}
+            <CardContent className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium text-slate-700">Full Name</label>
+                <p className="text-slate-800 mt-1" data-testid="text-profile-name">{profile?.name}</p>
               </div>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-slate-700">Full Name</label>
-                  <p className="text-slate-800 mt-1" data-testid="text-profile-name">{profile?.name}</p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-slate-700">Email</label>
-                  <p className="text-slate-800 mt-1" data-testid="text-profile-email">{profile?.email}</p>
-                </div>
+              <div>
+                <label className="text-sm font-medium text-slate-700">Email</label>
+                <p className="text-slate-800 mt-1" data-testid="text-profile-email">{profile?.email}</p>
               </div>
             </CardContent>
           </Card>

@@ -16,8 +16,21 @@ import { useLocation } from "wouter";
 
 const profileFormSchema = insertStudentProfileSchema.extend({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  gpa: z.string().optional(),
+  email: z.string()
+    .email("Please enter a valid email address")
+    .refine(
+      (email) => 
+        email.endsWith('@gmail.com') || 
+        email.endsWith('@yahoo.com') || 
+        email.endsWith('@rediffmail.com'),
+      "Email must be from @gmail.com, @yahoo.com, or @rediffmail.com"
+    ),
+  gpa: z.string()
+    .optional()
+    .refine(
+      (gpa) => !gpa || /^[0-9]+(\.[0-9]{1,2})?$/.test(gpa),
+      "GPA must be a number (e.g., 3.75)"
+    ),
 });
 
 type ProfileFormData = z.infer<typeof profileFormSchema>;
@@ -31,9 +44,24 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
   const [location, navigate] = useLocation();
   const { toast } = useToast();
 
+  // Load draft from localStorage on mount
+  const getDraftData = () => {
+    const draft = localStorage.getItem('profileDraft');
+    if (draft) {
+      try {
+        return JSON.parse(draft);
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  };
+
+  const draftData = getDraftData();
+
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues: {
+    defaultValues: draftData || {
       name: "",
       email: "",
       educationLevel: "",
@@ -80,6 +108,9 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
       // Store profile ID and user ID in localStorage for demo purposes
       localStorage.setItem('currentProfileId', response.id);
       localStorage.setItem('currentUserId', response.userId);
+      
+      // Clear draft after successful profile creation
+      localStorage.removeItem('profileDraft');
       
       // Generate matches after profile creation with the correct profile ID
       console.log("Generating matches for profile:", response.id);
@@ -148,6 +179,15 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
     // Skills and activities are optional
     console.log("Submitting form data:", data);
     createProfileMutation.mutate(data);
+  };
+
+  const saveDraft = () => {
+    const currentData = form.getValues();
+    localStorage.setItem('profileDraft', JSON.stringify(currentData));
+    toast({
+      title: "Draft Saved",
+      description: "Your profile draft has been saved. You can continue later.",
+    });
   };
 
   const nextStep = () => {
@@ -295,8 +335,18 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
                     <FormLabel>Current GPA (Optional)</FormLabel>
                     <FormControl>
                       <Input 
-                        placeholder="3.75" 
+                        placeholder="3.75"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        max="4"
                         {...field} 
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value === '' || /^[0-9]*\.?[0-9]*$/.test(value)) {
+                            field.onChange(value);
+                          }
+                        }}
                         data-testid="input-gpa"
                       />
                     </FormControl>
@@ -444,6 +494,7 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
               <Button 
                 type="button" 
                 variant="outline"
+                onClick={saveDraft}
                 data-testid="button-save-draft"
               >
                 Save Draft

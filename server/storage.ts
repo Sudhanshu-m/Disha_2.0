@@ -158,7 +158,16 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(scholarships.createdAt));
   }
 
-  async getScholarshipMatches(profileId: string): Promise<(ScholarshipMatch & { scholarship: Scholarship })[]> {
+  async getScholarshipMatches(profileId: string, statusFilter?: string): Promise<(ScholarshipMatch & { scholarship: Scholarship })[]> {
+    const conditions = [eq(scholarshipMatches.profileId, profileId)];
+    
+    if (statusFilter) {
+      conditions.push(eq(scholarshipMatches.status, statusFilter));
+    } else {
+      // Default: only show 'new' status matches
+      conditions.push(eq(scholarshipMatches.status, 'new'));
+    }
+    
     return await db
       .select({
         id: scholarshipMatches.id,
@@ -172,7 +181,7 @@ export class DatabaseStorage implements IStorage {
       })
       .from(scholarshipMatches)
       .innerJoin(scholarships, eq(scholarshipMatches.scholarshipId, scholarships.id))
-      .where(eq(scholarshipMatches.profileId, profileId))
+      .where(and(...conditions))
       .orderBy(desc(scholarshipMatches.matchScore));
   }
 

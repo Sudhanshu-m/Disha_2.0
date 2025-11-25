@@ -165,7 +165,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get scholarship matches for a profile
   app.get("/api/matches/:profileId", async (req, res) => {
     try {
-      const matches = await storage.getScholarshipMatches(req.params.profileId);
+      const statusFilter = req.query.status as string;
+      const matches = await storage.getScholarshipMatches(req.params.profileId, statusFilter);
       res.json(matches);
     } catch (error) {
       console.error("Error fetching matches:", error);

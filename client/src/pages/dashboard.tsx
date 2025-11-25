@@ -28,7 +28,12 @@ export default function Dashboard() {
 
 
   const { data: matches, isLoading } = useQuery<(ScholarshipMatch & { scholarship: Scholarship })[]>({
-    queryKey: ['/api/matches', profileId],
+    queryKey: ['/api/matches', profileId, 'new'],
+    queryFn: async () => {
+      const res = await fetch(`/api/matches/${profileId}?status=new`);
+      if (!res.ok) throw new Error('Failed to fetch matches');
+      return res.json();
+    },
     enabled: !!profileId,
   });
 
@@ -37,10 +42,10 @@ export default function Dashboard() {
       return await apiRequest("PUT", `/api/matches/${matchId}/status`, { status });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/matches', profileId] });
+      queryClient.invalidateQueries({ queryKey: ['/api/matches', profileId, 'new'] });
       toast({
         title: "Updated",
-        description: "Scholarship favorited successfully",
+        description: "Scholarship removed from dashboard",
       });
     },
     onError: () => {
@@ -309,7 +314,7 @@ export default function Dashboard() {
                       if (validProfileId) {
                         // Generate matches if we have a profile
                         apiRequest('POST', '/api/matches/generate', { profileId: validProfileId }).then(() => {
-                          queryClient.invalidateQueries({ queryKey: ['/api/matches', validProfileId] });
+                          queryClient.invalidateQueries({ queryKey: ['/api/matches', validProfileId, 'new'] });
                           toast({ title: 'Matches Generated', description: 'New scholarship matches have been generated!' });
                         }).catch((error) => {
                           console.error('Error generating matches:', error);

@@ -20,7 +20,12 @@ export default function Matches() {
   const profileId = localStorage.getItem('currentProfileId') || 'demo-profile';
 
   const { data: matches, isLoading } = useQuery<(ScholarshipMatch & { scholarship: Scholarship })[]>({
-    queryKey: ['/api/matches', profileId],
+    queryKey: ['/api/matches', profileId, 'new'],
+    queryFn: async () => {
+      const res = await fetch(`/api/matches/${profileId}?status=new`);
+      if (!res.ok) throw new Error('Failed to fetch matches');
+      return res.json();
+    },
     enabled: !!profileId,
   });
 
@@ -29,7 +34,7 @@ export default function Matches() {
       return await apiRequest("PUT", `/api/matches/${matchId}/status`, { status });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/matches', profileId] });
+      queryClient.invalidateQueries({ queryKey: ['/api/matches', profileId, 'new'] });
     },
   });
 

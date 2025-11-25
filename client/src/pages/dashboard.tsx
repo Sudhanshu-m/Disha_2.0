@@ -209,7 +209,7 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <DollarSign className="w-6 h-6 text-purple-600" />
+                  <span className="text-xl font-bold text-purple-600">₹</span>
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-slate-800" data-testid="stat-total-value">

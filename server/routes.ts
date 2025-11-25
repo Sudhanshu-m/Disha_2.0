@@ -4,48 +4,12 @@ import { storage } from "./storage";
 import { 
   insertStudentProfileSchema, 
   insertScholarshipSchema,
-  insertUserSchema,
   type StudentProfile,
   type Scholarship 
 } from "@shared/schema";
 import { generateScholarshipMatches, generateApplicationGuidance } from "./services/gemini";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Auth routes
-  app.post("/api/auth/signup", async (req, res) => {
-    try {
-      const { email, password } = insertUserSchema.parse(req.body);
-
-      // Check if user already exists
-      const existingUser = await storage.getUserByEmail(email);
-      if (existingUser) {
-        return res.status(400).json({ message: "Email already registered" });
-      }
-
-      const user = await storage.createUser({ email, password });
-      res.json({ user });
-    } catch (error: any) {
-      console.error("Error signing up:", error);
-      res.status(400).json({ message: error.message || "Failed to create account" });
-    }
-  });
-
-  app.post("/api/auth/login", async (req, res) => {
-    try {
-      const { email, password } = insertUserSchema.parse(req.body);
-
-      const user = await storage.getUserByEmail(email);
-      if (!user || user.password !== password) {
-        return res.status(401).json({ message: "Invalid email or password" });
-      }
-
-      res.json({ user });
-    } catch (error: any) {
-      console.error("Error logging in:", error);
-      res.status(400).json({ message: error.message || "Failed to login" });
-    }
-  });
-
   // Get student profile by user ID
   app.get("/api/profile/:userId", async (req, res) => {
     try {
@@ -91,22 +55,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const profileData = insertStudentProfileSchema.parse(req.body.profile);
-      const userId = req.body.userId;
       
-      if (!userId) {
-        return res.status(400).json({ message: "User ID is required" });
-      }
-
-      // Get user by ID
-      const user = await storage.getUser(userId);
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-
-      const profile = await storage.createStudentProfile({
-        ...profileData,
-        userId: user.id
-      });
+      const profile = await storage.createStudentProfile(profileData);
 
       console.log("Profile created successfully:", profile);
       res.json(profile);

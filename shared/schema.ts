@@ -4,15 +4,8 @@ import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = sqliteTable("users", {
-  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
-  email: text("email").notNull().unique(),
-  password: text("password").notNull(),
-});
-
 export const studentProfiles = sqliteTable("student_profiles", {
   id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
-  userId: text("user_id").references(() => users.id).notNull(),
   name: text("name").notNull(),
   email: text("email").notNull(),
   educationLevel: text("education_level").notNull(),
@@ -64,20 +57,8 @@ export const applicationGuidance = sqliteTable("application_guidance", {
   createdAt: text("created_at").default(sql`datetime('now')`).notNull(),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  email: true,
-  password: true,
-}).extend({
-  email: z.string().email("Invalid email").refine(
-    email => email.endsWith('@gmail.com') || email.endsWith('@yahoo.com') || email.endsWith('@rediffmail.com'),
-    "Email must be from @gmail.com, @yahoo.com, or @rediffmail.com"
-  ),
-  password: z.string().min(6, "Password must be at least 6 characters")
-});
-
 export const insertStudentProfileSchema = createInsertSchema(studentProfiles).omit({
   id: true,
-  userId: true,
   createdAt: true,
   updatedAt: true,
 });
@@ -97,8 +78,6 @@ export const insertApplicationGuidanceSchema = createInsertSchema(applicationGui
   createdAt: true,
 });
 
-export type User = typeof users.$inferSelect;
-export type InsertUser = z.infer<typeof insertUserSchema>;
 export type StudentProfile = typeof studentProfiles.$inferSelect;
 export type InsertStudentProfile = z.infer<typeof insertStudentProfileSchema>;
 export type Scholarship = typeof scholarships.$inferSelect;

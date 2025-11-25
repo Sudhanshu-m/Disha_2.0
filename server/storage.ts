@@ -1,11 +1,8 @@
 import {
-  users,
   studentProfiles,
   scholarships,
   scholarshipMatches,
   applicationGuidance,
-  type User,
-  type InsertUser,
   type StudentProfile,
   type InsertStudentProfile,
   type Scholarship,
@@ -20,15 +17,10 @@ import { db } from "./db";
 import { eq, desc, and, sql, gte, lte, ilike, inArray } from "drizzle-orm";
 
 export interface IStorage {
-  // User methods
-  getUser(id: string): Promise<User | undefined>;
-  getUserByEmail(email: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
-
   // Student profile methods
-  getStudentProfile(userId: string): Promise<StudentProfile | undefined>;
+  getStudentProfile(profileId: string): Promise<StudentProfile | undefined>;
   getStudentProfileById(profileId: string): Promise<StudentProfile | undefined>;
-  createStudentProfile(profile: InsertStudentProfile & { userId: string }): Promise<StudentProfile>;
+  createStudentProfile(profile: InsertStudentProfile): Promise<StudentProfile>;
   updateStudentProfile(id: string, profile: Partial<InsertStudentProfile>): Promise<StudentProfile>;
 
   // Scholarship methods
@@ -57,26 +49,8 @@ export interface IStorage {
 }
 
 export class DatabaseStorage implements IStorage {
-  async getUser(id: string): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.id, id));
-    return user || undefined;
-  }
-
-  async getUserByEmail(email: string): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.email, email));
-    return user || undefined;
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const [user] = await db
-      .insert(users)
-      .values(insertUser)
-      .returning();
-    return user;
-  }
-
-  async getStudentProfile(userId: string): Promise<StudentProfile | undefined> {
-    const [profile] = await db.select().from(studentProfiles).where(eq(studentProfiles.userId, userId));
+  async getStudentProfile(profileId: string): Promise<StudentProfile | undefined> {
+    const [profile] = await db.select().from(studentProfiles).where(eq(studentProfiles.id, profileId));
     return profile || undefined;
   }
 
@@ -85,7 +59,7 @@ export class DatabaseStorage implements IStorage {
     return profile || undefined;
   }
 
-  async createStudentProfile(profile: InsertStudentProfile & { userId: string }): Promise<StudentProfile> {
+  async createStudentProfile(profile: InsertStudentProfile): Promise<StudentProfile> {
     const [newProfile] = await db
       .insert(studentProfiles)
       .values({

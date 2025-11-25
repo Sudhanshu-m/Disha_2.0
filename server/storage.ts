@@ -228,11 +228,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-03-15",
         description: "Supporting underrepresented students in computer science and technology fields.",
         requirements: "3.5+ GPA, demonstrated leadership, passion for computer science",
-        tags: ["technology", "computer-science", "diversity", "leadership"],
+        tags: JSON.stringify(["technology", "computer-science", "diversity", "leadership"]),
         type: "merit-based",
         eligibilityGpa: "3.5",
-        eligibleFields: ["Computer Science", "Software Engineering", "Information Technology"],
-        eligibleLevels: ["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Computer Science", "Software Engineering", "Information Technology"]),
+        eligibleLevels: JSON.stringify(["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -243,11 +243,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-04-01",
         description: "Full-time internship program for students from non-traditional backgrounds in tech.",
         requirements: "Enrolled in computer science or related field, strong coding skills",
-        tags: ["technology", "internship", "coding", "diversity"],
+        tags: JSON.stringify(["technology", "internship", "coding", "diversity"]),
         type: "merit-based",
         eligibilityGpa: "3.0",
-        eligibleFields: ["Computer Science", "Software Engineering", "Electrical Engineering"],
-        eligibleLevels: ["undergraduate-sophomore", "undergraduate-junior"],
+        eligibleFields: JSON.stringify(["Computer Science", "Software Engineering", "Electrical Engineering"]),
+        eligibleLevels: JSON.stringify(["undergraduate-sophomore", "undergraduate-junior"]),
         isActive: true
       },
       {
@@ -258,11 +258,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-05-20",
         description: "Supporting innovative student developers building apps for Apple platforms.",
         requirements: "App development portfolio, Swift programming skills",
-        tags: ["technology", "mobile-development", "innovation", "apple"],
+        tags: JSON.stringify(["technology", "mobile-development", "innovation", "apple"]),
         type: "merit-based",
         eligibilityGpa: "3.0",
-        eligibleFields: ["Computer Science", "Software Engineering", "Mobile Development"],
-        eligibleLevels: ["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Computer Science", "Software Engineering", "Mobile Development"]),
+        eligibleLevels: JSON.stringify(["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       
@@ -275,11 +275,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-02-15",
         description: "Empowering women in engineering and technology fields.",
         requirements: "Female student, 3.5+ GPA, engineering major",
-        tags: ["engineering", "women", "stem", "leadership"],
+        tags: JSON.stringify(["engineering", "women", "stem", "leadership"]),
         type: "merit-based",
         eligibilityGpa: "3.5",
-        eligibleFields: ["Mechanical Engineering", "Electrical Engineering", "Civil Engineering", "Chemical Engineering"],
-        eligibleLevels: ["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Mechanical Engineering", "Electrical Engineering", "Civil Engineering", "Chemical Engineering"]),
+        eligibleLevels: JSON.stringify(["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -290,11 +290,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-03-30",
         description: "Supporting students pursuing electrical engineering and computer science.",
         requirements: "IEEE student membership, strong academic performance",
-        tags: ["engineering", "electrical", "ieee", "technology"],
+        tags: JSON.stringify(["engineering", "electrical", "ieee", "technology"]),
         type: "merit-based",
         eligibilityGpa: "3.2",
-        eligibleFields: ["Electrical Engineering", "Computer Engineering", "Computer Science"],
-        eligibleLevels: ["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Electrical Engineering", "Computer Engineering", "Computer Science"]),
+        eligibleLevels: JSON.stringify(["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
 
@@ -307,11 +307,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-04-15",
         description: "Supporting students pursuing careers in finance and business technology.",
         requirements: "Business or finance major, 3.3+ GPA, leadership experience",
-        tags: ["finance", "business", "leadership", "banking"],
+        tags: JSON.stringify(["finance", "business", "leadership", "banking"]),
         type: "merit-based",
         eligibilityGpa: "3.3",
-        eligibleFields: ["Business Administration", "Finance", "Economics", "Accounting"],
-        eligibleLevels: ["undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Business Administration", "Finance", "Economics", "Accounting"]),
+        eligibleLevels: JSON.stringify(["undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -322,11 +322,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-03-01",
         description: "Comprehensive scholarship program for future finance leaders.",
         requirements: "Finance or economics major, exceptional academic record, internship experience",
-        tags: ["finance", "investment", "leadership", "economics"],
+        tags: JSON.stringify(["finance", "investment", "leadership", "economics"]),
         type: "merit-based",
         eligibilityGpa: "3.7",
-        eligibleFields: ["Finance", "Economics", "Business Administration"],
-        eligibleLevels: ["undergraduate-senior", "graduate-masters"],
+        eligibleFields: JSON.stringify(["Finance", "Economics", "Business Administration"]),
+        eligibleLevels: JSON.stringify(["undergraduate-senior", "graduate-masters"]),
         isActive: true
       },
 

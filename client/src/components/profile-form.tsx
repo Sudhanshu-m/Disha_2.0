@@ -583,8 +583,8 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
                 data-testid="button-analyze-profile"
               >
                 {createProfileMutation.isPending || generateMatchesMutation.isPending 
-                  ? "Analyzing..." 
-                  : "Analyze My Profile"
+                  ? "Creating Profile..." 
+                  : "Go to Profile"
                 }
               </Button>
             )}

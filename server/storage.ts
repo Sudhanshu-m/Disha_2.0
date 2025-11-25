@@ -339,11 +339,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-05-01",
         description: "Supporting future healthcare professionals and medical researchers.",
         requirements: "Pre-med or medical student, 3.8+ GPA, healthcare volunteer experience",
-        tags: ["medical", "healthcare", "research", "volunteer"],
+        tags: JSON.stringify(["medical", "healthcare", "research", "volunteer"]),
         type: "merit-based",
         eligibilityGpa: "3.8",
-        eligibleFields: ["Pre-Medicine", "Biology", "Chemistry", "Health Sciences"],
-        eligibleLevels: ["undergraduate-junior", "undergraduate-senior", "graduate-masters"],
+        eligibleFields: JSON.stringify(["Pre-Medicine", "Biology", "Chemistry", "Health Sciences"]),
+        eligibleLevels: JSON.stringify(["undergraduate-junior", "undergraduate-senior", "graduate-masters"]),
         isActive: true
       },
       {
@@ -354,11 +354,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-06-15",
         description: "Supporting the next generation of nursing professionals.",
         requirements: "Nursing major, 3.5+ GPA, clinical experience",
-        tags: ["nursing", "healthcare", "clinical", "patient-care"],
+        tags: JSON.stringify(["nursing", "healthcare", "clinical", "patient-care"]),
         type: "merit-based",
         eligibilityGpa: "3.5",
-        eligibleFields: ["Nursing", "Health Sciences"],
-        eligibleLevels: ["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Nursing", "Health Sciences"]),
+        eligibleLevels: JSON.stringify(["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
 
@@ -371,11 +371,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-04-30",
         description: "Supporting students committed to environmental protection and sustainability.",
         requirements: "Environmental science major, 3.4+ GPA, environmental project experience",
-        tags: ["environmental", "sustainability", "science", "climate"],
+        tags: JSON.stringify(["environmental", "sustainability", "science", "climate"]),
         type: "merit-based",
         eligibilityGpa: "3.4",
-        eligibleFields: ["Environmental Science", "Environmental Engineering", "Biology", "Chemistry"],
-        eligibleLevels: ["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Environmental Science", "Environmental Engineering", "Biology", "Chemistry"]),
+        eligibleLevels: JSON.stringify(["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -386,11 +386,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-02-28",
         description: "Advancing STEM education and research across all scientific disciplines.",
         requirements: "STEM major, 3.6+ GPA, research experience",
-        tags: ["stem", "research", "science", "mathematics"],
+        tags: JSON.stringify(["stem", "research", "science", "mathematics"]),
         type: "merit-based",
         eligibilityGpa: "3.6",
-        eligibleFields: ["Physics", "Chemistry", "Biology", "Mathematics", "Computer Science"],
-        eligibleLevels: ["undergraduate-junior", "undergraduate-senior", "graduate-masters"],
+        eligibleFields: JSON.stringify(["Physics", "Chemistry", "Biology", "Mathematics", "Computer Science"]),
+        eligibleLevels: JSON.stringify(["undergraduate-junior", "undergraduate-senior", "graduate-masters"]),
         isActive: true
       },
 
@@ -403,11 +403,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-10-15",
         description: "International educational exchange program promoting cultural understanding.",
         requirements: "Bachelor's degree, strong academic record, language skills",
-        tags: ["international", "cultural-exchange", "languages", "research"],
+        tags: JSON.stringify(["international", "cultural-exchange", "languages", "research"]),
         type: "merit-based",
         eligibilityGpa: "3.5",
-        eligibleFields: ["International Relations", "Languages", "Cultural Studies", "Political Science"],
-        eligibleLevels: ["graduate-masters", "graduate-phd"],
+        eligibleFields: JSON.stringify(["International Relations", "Languages", "Cultural Studies", "Political Science"]),
+        eligibleLevels: JSON.stringify(["graduate-masters", "graduate-phd"]),
         isActive: true
       },
       {
@@ -418,11 +418,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-03-20",
         description: "Supporting innovative research in humanities and social sciences.",
         requirements: "Humanities major, research proposal, faculty recommendation",
-        tags: ["humanities", "research", "social-sciences", "culture"],
+        tags: JSON.stringify(["humanities", "research", "social-sciences", "culture"]),
         type: "merit-based",
         eligibilityGpa: "3.4",
-        eligibleFields: ["History", "Philosophy", "Literature", "Art History", "Anthropology"],
-        eligibleLevels: ["undergraduate-senior", "graduate-masters"],
+        eligibleFields: JSON.stringify(["History", "Philosophy", "Literature", "Art History", "Anthropology"]),
+        eligibleLevels: JSON.stringify(["undergraduate-senior", "graduate-masters"]),
         isActive: true
       },
 
@@ -435,11 +435,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-07-01",
         description: "Supporting first-generation college students pursuing higher education.",
         requirements: "First-generation college student, demonstrated financial need",
-        tags: ["first-generation", "financial-need", "education", "support"],
+        tags: JSON.stringify(["first-generation", "financial-need", "education", "support"]),
         type: "need-based",
         eligibilityGpa: "2.8",
-        eligibleFields: null,
-        eligibleLevels: ["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify([]),
+        eligibleLevels: JSON.stringify(["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -450,11 +450,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-08-15",
         description: "Promoting educational equity for underrepresented minority students.",
         requirements: "Underrepresented minority status, financial need, 3.0+ GPA",
-        tags: ["diversity", "minority", "equity", "financial-aid"],
+        tags: JSON.stringify(["diversity", "minority", "equity", "financial-aid"]),
         type: "need-based",
         eligibilityGpa: "3.0",
-        eligibleFields: null,
-        eligibleLevels: ["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify([]),
+        eligibleLevels: JSON.stringify(["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
 
@@ -467,11 +467,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-01-31",
         description: "Hands-on internship experience in aerospace engineering and space science.",
         requirements: "STEM major, 3.0+ GPA, US citizenship",
-        tags: ["internship", "aerospace", "engineering", "space"],
+        tags: JSON.stringify(["internship", "aerospace", "engineering", "space"]),
         type: "internship",
         eligibilityGpa: "3.0",
-        eligibleFields: ["Aerospace Engineering", "Mechanical Engineering", "Physics", "Computer Science"],
-        eligibleLevels: ["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Aerospace Engineering", "Mechanical Engineering", "Physics", "Computer Science"]),
+        eligibleLevels: JSON.stringify(["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -482,11 +482,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-02-10",
         description: "Full-time summer internship building next-generation social technology.",
         requirements: "Computer science major, strong programming skills, previous internship experience",
-        tags: ["internship", "software", "social-media", "technology"],
+        tags: JSON.stringify(["internship", "software", "social-media", "technology"]),
         type: "internship",
         eligibilityGpa: "3.2",
-        eligibleFields: ["Computer Science", "Software Engineering"],
-        eligibleLevels: ["undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Computer Science", "Software Engineering"]),
+        eligibleLevels: JSON.stringify(["undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -497,11 +497,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-03-05",
         description: "Six-month co-op program working on sustainable transportation and energy.",
         requirements: "Engineering major, 3.3+ GPA, passion for sustainability",
-        tags: ["internship", "automotive", "sustainability", "engineering"],
+        tags: JSON.stringify(["internship", "automotive", "sustainability", "engineering"]),
         type: "internship",
         eligibilityGpa: "3.3",
-        eligibleFields: ["Mechanical Engineering", "Electrical Engineering", "Chemical Engineering"],
-        eligibleLevels: ["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Mechanical Engineering", "Electrical Engineering", "Chemical Engineering"]),
+        eligibleLevels: JSON.stringify(["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -512,11 +512,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-04-20",
         description: "Summer internship in content analysis and entertainment industry strategy.",
         requirements: "Business, communications, or media studies major, analytical skills",
-        tags: ["internship", "media", "entertainment", "strategy"],
+        tags: JSON.stringify(["internship", "media", "entertainment", "strategy"]),
         type: "internship",
         eligibilityGpa: "3.1",
-        eligibleFields: ["Business Administration", "Communications", "Media Studies", "Marketing"],
-        eligibleLevels: ["undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Business Administration", "Communications", "Media Studies", "Marketing"]),
+        eligibleLevels: JSON.stringify(["undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       }
     ];
@@ -531,11 +531,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-04-25",
         description: "Supporting creative students in digital arts and design.",
         requirements: "Portfolio submission, creative arts major, 3.0+ GPA",
-        tags: ["creative", "design", "digital-arts", "portfolio"],
+        tags: JSON.stringify(["creative", "design", "digital-arts", "portfolio"]),
         type: "merit-based",
         eligibilityGpa: "3.0",
-        eligibleFields: ["Graphic Design", "Digital Arts", "Media Arts", "Computer Science"],
-        eligibleLevels: ["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Graphic Design", "Digital Arts", "Media Arts", "Computer Science"]),
+        eligibleLevels: JSON.stringify(["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -546,11 +546,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-05-10",
         description: "Empowering the next generation of business technology leaders.",
         requirements: "Business or technology major, leadership experience, 3.2+ GPA",
-        tags: ["business", "technology", "leadership", "salesforce"],
+        tags: JSON.stringify(["business", "technology", "leadership", "salesforce"]),
         type: "merit-based",
         eligibilityGpa: "3.2",
-        eligibleFields: ["Business Administration", "Information Systems", "Computer Science", "Marketing"],
-        eligibleLevels: ["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify(["Business Administration", "Information Systems", "Computer Science", "Marketing"]),
+        eligibleLevels: JSON.stringify(["undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -561,11 +561,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-06-01",
         description: "Recognizing outstanding academic achievement across all fields.",
         requirements: "3.5+ GPA, any major, demonstrated academic excellence",
-        tags: ["academic", "excellence", "general", "achievement"],
+        tags: JSON.stringify(["academic", "excellence", "general", "achievement"]),
         type: "merit-based",
         eligibilityGpa: "3.5",
-        eligibleFields: null,
-        eligibleLevels: ["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify([]),
+        eligibleLevels: JSON.stringify(["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -576,11 +576,11 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-07-15",
         description: "Supporting international students pursuing higher education.",
         requirements: "International student status, any major, 3.0+ GPA",
-        tags: ["international", "diversity", "global", "education"],
+        tags: JSON.stringify(["international", "diversity", "global", "education"]),
         type: "need-based",
         eligibilityGpa: "3.0",
-        eligibleFields: null,
-        eligibleLevels: ["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"],
+        eligibleFields: JSON.stringify([]),
+        eligibleLevels: JSON.stringify(["undergraduate-freshman", "undergraduate-sophomore", "undergraduate-junior", "undergraduate-senior"]),
         isActive: true
       },
       {
@@ -591,7 +591,7 @@ export class DatabaseStorage implements IStorage {
         deadline: "2025-03-25",
         description: "Funding innovative STEM projects and research.",
         requirements: "STEM major, research project proposal, 3.3+ GPA",
-        tags: ["stem", "innovation", "research", "project"],
+        tags: JSON.stringify(["stem", "innovation", "research", "project"]),
         type: "merit-based",
         eligibilityGpa: "3.3",
         eligibleFields: ["Engineering", "Computer Science", "Mathematics", "Physics", "Chemistry", "Biology"],

@@ -5,7 +5,7 @@ import HeroSection from "@/components/hero-section";
 import ProfileForm from "@/components/profile-form";
 
 import { Button } from "@/components/ui/button";
-import { Check, FileText, Shield, Users, DollarSign, Clock, Target, Info, X, Heart, User } from "lucide-react";
+import { Check, FileText, Shield, Users, Clock, Target, Info, X, Heart, User } from "lucide-react";
 
 // Sample opportunities data
 const sampleOpportunities = [
@@ -148,7 +148,7 @@ function SampleOpportunityCard({ onStartAnalysis }: { onStartAnalysis: () => voi
           onClick={onStartAnalysis}
           className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
         >
-          Get Started Now
+          Go to Profile
         </Button>
       </div>
     </div>
@@ -262,9 +262,9 @@ export default function Home() {
                 </div>
               </div>
 
-              <Link href="/dashboard">
+              <Link href="/guidance">
                 <Button className="mt-8 bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                  Try Guidance Assistant
+                  Connect with Counselors
                 </Button>
               </Link>
             </div>

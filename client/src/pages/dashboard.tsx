@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import Navigation from "@/components/navigation";
 import ScholarshipCard from "@/components/scholarship-card";
 import DeadlineTracker from "@/components/deadline-tracker";
@@ -8,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckCircle, DollarSign, Clock, Target } from "lucide-react";
+import { CheckCircle, Clock, Target } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { ScholarshipMatch, Scholarship } from "@shared/schema";
@@ -21,7 +22,7 @@ export default function Dashboard() {
   });
   const [sortBy, setSortBy] = useState("matchScore");
   const { toast } = useToast();
-  const [location, navigate] = require("wouter").useLocation();
+  const [location, navigate] = useLocation();
 
   // Get profile ID from localStorage - in a real app, this would come from authentication
   const profileId = localStorage.getItem('currentProfileId') || null;

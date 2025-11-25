@@ -5,7 +5,7 @@ import Navigation from "@/components/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, X, Star, Clock, DollarSign, MapPin, Building2 } from "lucide-react";
+import { Heart, X, Star, Clock, MapPin, Building2 } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { ScholarshipMatch, Scholarship } from "@shared/schema";
@@ -216,19 +216,9 @@ export default function Matches() {
           <div className="text-center">
             <h2 className="text-2xl font-bold text-slate-800 mb-4">No Matches Yet</h2>
             <p className="text-slate-600 mb-8">Create a profile and generate matches to start swiping!</p>
-            <div className="space-x-4">
-              <Button onClick={() => window.location.href = '/profile'}>
-                Create Profile
-              </Button>
-              <Button variant="outline" onClick={() => {
-                apiRequest('POST', '/api/seed-data').then(() => {
-                  toast({ title: 'Sample Data Added', description: 'Check your dashboard for new opportunities!' });
-                  window.location.href = '/dashboard';
-                });
-              }}>
-                Add Sample Data
-              </Button>
-            </div>
+            <Button onClick={() => window.location.href = '/profile'}>
+              Create Profile
+            </Button>
           </div>
         </div>
       </div>
@@ -304,9 +294,8 @@ export default function Matches() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="flex items-center text-green-600 font-semibold text-lg mb-1">
-                    <DollarSign className="w-5 h-5 mr-1" />
-                    {scholarship.amount}
+                  <div className="text-green-600 font-semibold text-lg mb-1">
+                    {scholarship.amount?.replace('$', '₹') || '₹0'}
                   </div>
                   <Badge variant="secondary" className="bg-primary/10 text-primary">
                     {currentMatch.matchScore}% Match

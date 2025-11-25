@@ -8,6 +8,7 @@ import Dashboard from "@/pages/dashboard";
 import Profile from "@/pages/profile";
 import Matches from "@/pages/matches";
 import Opportunities from "@/pages/opportunities";
+import Guidance from "@/pages/guidance";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/profile" component={Profile} />
       <Route path="/matches" component={Matches} />
       <Route path="/opportunities" component={Opportunities} />
+      <Route path="/guidance" component={Guidance} />
       <Route component={NotFound} />
     </Switch>
   );

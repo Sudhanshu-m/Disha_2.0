@@ -62,8 +62,12 @@ export default function Navigation() {
               Profile
             </Link>
             <Link
-              href="/#guidance"
-              className="text-slate-600 hover:text-primary transition-colors"
+              href="/guidance"
+              className={`transition-colors ${
+                location === '/guidance'
+                  ? 'text-primary'
+                  : 'text-slate-600 hover:text-primary'
+              }`}
               data-testid="link-guidance"
             >
               Guidance

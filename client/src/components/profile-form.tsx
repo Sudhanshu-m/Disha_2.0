@@ -310,7 +310,16 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
                       <Input 
                         type="email"
                         placeholder="your.email@example.com" 
-                        {...field} 
+                        {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          // Trigger validation immediately
+                          form.trigger("email");
+                        }}
+                        onBlur={(e) => {
+                          field.onBlur();
+                          form.trigger("email");
+                        }}
                         data-testid="input-email"
                       />
                     </FormControl>
@@ -382,7 +391,12 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
                           const value = e.target.value;
                           if (value === '' || /^[0-9]*\.?[0-9]*$/.test(value)) {
                             field.onChange(value);
+                            form.trigger("gpa");
                           }
+                        }}
+                        onBlur={(e) => {
+                          field.onBlur();
+                          form.trigger("gpa");
                         }}
                         data-testid="input-gpa"
                       />
@@ -427,13 +441,21 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
                 name="skills"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Skills & Interests</FormLabel>
+                    <FormLabel>Skills & Interests (Optional - minimum 10 characters)</FormLabel>
                     <FormControl>
                       <Textarea 
                         rows={4}
                         placeholder="List your key skills, programming languages, research interests, hobbies, etc." 
                         {...field}
                         value={field.value || ""}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          form.trigger("skills");
+                        }}
+                        onBlur={(e) => {
+                          field.onBlur();
+                          form.trigger("skills");
+                        }}
                         data-testid="textarea-skills"
                       />
                     </FormControl>
@@ -447,13 +469,21 @@ export default function ProfileForm({ onComplete }: ProfileFormProps) {
                 name="activities"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Extracurricular Activities</FormLabel>
+                    <FormLabel>Extracurricular Activities (Optional - minimum 10 characters)</FormLabel>
                     <FormControl>
                       <Textarea 
                         rows={4}
                         placeholder="Clubs, volunteer work, internships, leadership roles, etc." 
                         {...field}
                         value={field.value || ""}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          form.trigger("activities");
+                        }}
+                        onBlur={(e) => {
+                          field.onBlur();
+                          form.trigger("activities");
+                        }}
                         data-testid="textarea-activities"
                       />
                     </FormControl>

@@ -14,7 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { insertStudentProfileSchema } from "@shared/schema";
 import { useLocation } from "wouter";
 
-const profileFormSchema = insertStudentProfileSchema.extend({
+const profileFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string()
     .email("Please enter a valid email address")
@@ -25,12 +25,19 @@ const profileFormSchema = insertStudentProfileSchema.extend({
         email.endsWith('@rediffmail.com'),
       "Email must be from @gmail.com, @yahoo.com, or @rediffmail.com"
     ),
+  educationLevel: z.string().min(1, "Education level is required"),
+  fieldOfStudy: z.string().min(1, "Field of study is required"),
   gpa: z.string()
     .optional()
     .refine(
       (gpa) => !gpa || /^[0-9]+(\.[0-9]{1,2})?$/.test(gpa),
       "GPA must be a number (e.g., 3.75)"
     ),
+  graduationYear: z.string().min(1, "Graduation year is required"),
+  skills: z.string().optional(),
+  activities: z.string().optional(),
+  financialNeed: z.string().min(1, "Financial need is required"),
+  location: z.string().min(1, "Location is required"),
 });
 
 type ProfileFormData = z.infer<typeof profileFormSchema>;

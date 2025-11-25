@@ -74,21 +74,7 @@ export const insertStudentProfileSchema = createInsertSchema(studentProfiles).om
   userId: true,
   createdAt: true,
   updatedAt: true,
-}).refine(
-  (data) => {
-    if (!data.email) return true;
-    return data.email.endsWith('@gmail.com') || 
-           data.email.endsWith('@yahoo.com') || 
-           data.email.endsWith('@rediffmail.com');
-  },
-  { message: "Email must be from @gmail.com, @yahoo.com, or @rediffmail.com", path: ["email"] }
-).refine(
-  (data) => {
-    if (!data.gpa) return true;
-    return /^[0-9]+(\.[0-9]{1,2})?$/.test(data.gpa) && parseFloat(data.gpa) >= 0 && parseFloat(data.gpa) <= 4;
-  },
-  { message: "GPA must be a number between 0 and 4", path: ["gpa"] }
-);
+});
 
 export const insertScholarshipSchema = createInsertSchema(scholarships).omit({
   id: true,

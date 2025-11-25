@@ -214,7 +214,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         profileId,
         scholarshipId,
         essayTips: guidance.essayTips,
-        checklist: guidance.checklist,
+        checklist: typeof guidance.checklist === 'string' ? guidance.checklist : JSON.stringify(guidance.checklist),
         improvementSuggestions: guidance.improvementSuggestions
       });
 
@@ -316,7 +316,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ];
 
       for (const scholarshipData of seedScholarships) {
-        await storage.createScholarship(scholarshipData);
+        await storage.createScholarship({
+          ...scholarshipData,
+          tags: JSON.stringify(scholarshipData.tags),
+          eligibleFields: JSON.stringify(scholarshipData.eligibleFields),
+          eligibleLevels: JSON.stringify(scholarshipData.eligibleLevels)
+        });
       }
 
       res.json({ message: "Scholarships seeded successfully", count: seedScholarships.length });

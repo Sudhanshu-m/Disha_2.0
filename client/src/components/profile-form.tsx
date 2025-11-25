@@ -16,10 +16,7 @@ import { useLocation } from "wouter";
 
 const profileFormSchema = insertStudentProfileSchema.extend({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address").refine(
-    (email) => email.includes('@gmail.com') || email.includes('@outlook.com') || email.includes('@yahoo.com') || email.includes('@'), 
-    "Please enter a valid email address"
-  ),
+  email: z.string().email("Please enter a valid email address"),
   gpa: z.string().optional(),
 });
 

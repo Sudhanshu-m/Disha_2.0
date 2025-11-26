@@ -10,7 +10,7 @@ export default function HeroSection({ onStartAnalysis, buttonText = "Start Your 
   const scholarshipEmojis = ['📚', '🎓', '🏆', '✨', '💡', '🌟', '📖', '🎯'];
   
   return (
-    <section className="relative bg-gradient-to-r from-primary to-secondary text-white py-16 overflow-hidden">
+    <section className="relative text-white py-16 overflow-hidden" style={{background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #3b82f6 100%)'}}>
       <style>{`
         @keyframes slideInLeft {
           from { opacity: 0; transform: translateX(-50px); }
@@ -29,9 +29,10 @@ export default function HeroSection({ onStartAnalysis, buttonText = "Start Your 
           50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.6); }
         }
         @keyframes gradient-shift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
+          0% { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%); }
+          33% { background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #3b82f6 100%); }
+          66% { background: linear-gradient(135deg, #ec4899 0%, #3b82f6 50%, #8b5cf6 100%); }
+          100% { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%); }
         }
         @keyframes float-up-seamless {
           0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
@@ -44,8 +45,13 @@ export default function HeroSection({ onStartAnalysis, buttonText = "Start Your 
         .animate-fade-up { animation: fadeInUp 0.8s ease-out 0.2s both; }
         .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
         .animate-gradient { 
-          background-size: 200% 200%;
           animation: gradient-shift 8s ease infinite;
+        }
+        .hero-section-bg {
+          position: absolute;
+          inset: 0;
+          animation: gradient-shift 8s ease infinite;
+          z-index: 0;
         }
         .floating-emoji {
           position: absolute;
@@ -63,8 +69,11 @@ export default function HeroSection({ onStartAnalysis, buttonText = "Start Your 
         .emoji-6 { animation: float-up-seamless 8s linear infinite; left: 85%; animation-delay: 2.5s; }
       `}</style>
       
+      {/* Animated gradient background */}
+      <div className="hero-section-bg"></div>
+      
       {/* Animated floating emojis */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-5">
         <div className="floating-emoji emoji-1">📚</div>
         <div className="floating-emoji emoji-2">🎓</div>
         <div className="floating-emoji emoji-3">🏆</div>
@@ -72,9 +81,6 @@ export default function HeroSection({ onStartAnalysis, buttonText = "Start Your 
         <div className="floating-emoji emoji-5">💡</div>
         <div className="floating-emoji emoji-6">🌟</div>
       </div>
-      
-      {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 animate-gradient pointer-events-none" style={{backgroundSize: '200% 200%'}}></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="animate-slide-left">

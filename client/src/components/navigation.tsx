@@ -1,6 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { Bell, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import dishaiLogo from "@assets/WhatsApp Image 2025-11-27 at 00.47.24_c2a03fb7_1764185548672.jpg";
 
 export default function Navigation() {
   const [location] = useLocation();
@@ -10,9 +11,7 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2" data-testid="link-home">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">DA</span>
-            </div>
+            <img src={dishaiLogo} alt="Disha AI Logo" className="w-10 h-10" />
             <h1 className="text-xl font-bold text-slate-800">Disha AI</h1>
           </Link>
 

@@ -202,36 +202,60 @@ export default function Home() {
       )}
 
       {/* Features Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white overflow-hidden">
+        <style>{`
+          @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+          }
+          @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+          }
+          .animate-fade-up { animation: fadeInUp 0.6s ease-out forwards; }
+          .animate-scale-in { animation: scaleIn 0.6s ease-out forwards; }
+          .animate-bounce-subtle { animation: bounce-subtle 3s ease-in-out infinite; }
+          .step-card { opacity: 0; }
+          .step-card:nth-child(1) { animation: fadeInUp 0.6s ease-out 0s forwards; }
+          .step-card:nth-child(2) { animation: fadeInUp 0.6s ease-out 0.2s forwards; }
+          .step-card:nth-child(3) { animation: fadeInUp 0.6s ease-out 0.4s forwards; }
+        `}</style>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-800 mb-4">How Disha AI Works</h2>
-            <p className="text-lg text-slate-600">Three simple steps to unlock your educational funding</p>
+            <h2 className="text-3xl font-bold text-slate-800 mb-4 animate-fade-up">How Disha AI Works</h2>
+            <p className="text-lg text-slate-600 animate-fade-up" style={{animationDelay: '0.2s'}}>Three simple steps to unlock your educational funding</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="step-card text-center p-6 rounded-lg hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-subtle">
                 <Users className="w-8 h-8 text-primary" />
               </div>
               <h3 className="text-xl font-semibold text-slate-800 mb-3">Create Your Profile</h3>
               <p className="text-slate-600">Share your academic background, skills, and goals to build a comprehensive profile.</p>
+              <div className="mt-4 inline-block px-4 py-1 bg-primary/5 rounded-full text-sm font-semibold text-primary">Step 1</div>
             </div>
 
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="step-card text-center p-6 rounded-lg hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+              <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-subtle" style={{animationDelay: '0.5s'}}>
                 <Target className="w-8 h-8 text-secondary" />
               </div>
               <h3 className="text-xl font-semibold text-slate-800 mb-3">AI-Powered Matching</h3>
               <p className="text-slate-600">Our advanced AI analyzes thousands of scholarships to find your perfect matches.</p>
+              <div className="mt-4 inline-block px-4 py-1 bg-secondary/5 rounded-full text-sm font-semibold text-secondary">Step 2</div>
             </div>
 
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="step-card text-center p-6 rounded-lg hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-subtle" style={{animationDelay: '1s'}}>
                 <FileText className="w-8 h-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold text-slate-800 mb-3">Get Personalized Guidance</h3>
               <p className="text-slate-600">Receive tailored application tips, essay guidance, and deadline reminders.</p>
+              <div className="mt-4 inline-block px-4 py-1 bg-blue-100 rounded-full text-sm font-semibold text-blue-600">Step 3</div>
             </div>
           </div>
         </div>

@@ -33,9 +33,11 @@ export default function HeroSection({ onStartAnalysis, buttonText = "Start Your 
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
-        @keyframes float-continuous {
-          0% { transform: translateY(0px) rotate(0deg); }
-          100% { transform: translateY(-80px) rotate(360deg); }
+        @keyframes float-up-loop {
+          0% { bottom: -60px; opacity: 0.1; }
+          10% { opacity: 0.3; }
+          90% { opacity: 0.3; }
+          100% { bottom: 120%; opacity: 0.1; }
         }
         .animate-slide-left { animation: slideInLeft 0.8s ease-out; }
         .animate-slide-right { animation: slideInRight 0.8s ease-out; }
@@ -46,17 +48,18 @@ export default function HeroSection({ onStartAnalysis, buttonText = "Start Your 
           animation: gradient-shift 8s ease infinite;
         }
         .floating-emoji {
-          position: absolute;
+          position: fixed;
           font-size: 2.5rem;
           opacity: 0.3;
           filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+          pointer-events: none;
         }
-        .emoji-1 { animation: float-continuous 6s ease-in-out infinite; left: 10%; top: 50%; }
-        .emoji-2 { animation: float-continuous 7s ease-in-out infinite; left: 25%; top: 40%; animation-delay: 1s; }
-        .emoji-3 { animation: float-continuous 8s ease-in-out infinite; left: 40%; top: 60%; animation-delay: 2s; }
-        .emoji-4 { animation: float-continuous 6.5s ease-in-out infinite; left: 55%; top: 35%; animation-delay: 0.5s; }
-        .emoji-5 { animation: float-continuous 7.5s ease-in-out infinite; left: 70%; top: 55%; animation-delay: 1.5s; }
-        .emoji-6 { animation: float-continuous 6s ease-in-out infinite; left: 85%; top: 45%; animation-delay: 2.5s; }
+        .emoji-1 { animation: float-up-loop 6s linear infinite; left: 10%; }
+        .emoji-2 { animation: float-up-loop 7s linear infinite; left: 25%; animation-delay: 0.5s; }
+        .emoji-3 { animation: float-up-loop 8s linear infinite; left: 40%; animation-delay: 1s; }
+        .emoji-4 { animation: float-up-loop 6.5s linear infinite; left: 55%; animation-delay: 1.5s; }
+        .emoji-5 { animation: float-up-loop 7.5s linear infinite; left: 70%; animation-delay: 2s; }
+        .emoji-6 { animation: float-up-loop 6s linear infinite; left: 85%; animation-delay: 2.5s; }
       `}</style>
       
       {/* Animated floating emojis */}

@@ -10,7 +10,7 @@ export default function HeroSection({ onStartAnalysis, buttonText = "Start Your 
   const scholarshipEmojis = ['📚', '🎓', '🏆', '✨', '💡', '🌟', '📖', '🎯'];
   
   return (
-    <section className="relative text-white py-16 overflow-hidden" style={{background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #3b82f6 100%)'}}>
+    <section className="relative bg-gradient-to-r from-primary to-secondary text-white py-16 overflow-hidden">
       <style>{`
         @keyframes slideInLeft {
           from { opacity: 0; transform: translateX(-50px); }
@@ -29,10 +29,9 @@ export default function HeroSection({ onStartAnalysis, buttonText = "Start Your 
           50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.6); }
         }
         @keyframes gradient-shift {
-          0% { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%); }
-          33% { background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #3b82f6 100%); }
-          66% { background: linear-gradient(135deg, #ec4899 0%, #3b82f6 50%, #8b5cf6 100%); }
-          100% { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%); }
+          0% { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-primary) 100%); }
+          50% { background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 50%, var(--color-secondary) 100%); }
+          100% { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-primary) 100%); }
         }
         @keyframes float-up-seamless {
           0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }

@@ -7,8 +7,10 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ onStartAnalysis, buttonText = "Start Your Analysis" }: HeroSectionProps) {
+  const scholarshipEmojis = ['📚', '🎓', '🏆', '✨', '💡', '🌟', '📖', '🎯'];
+  
   return (
-    <section className="bg-gradient-to-r from-primary to-secondary text-white py-16 overflow-hidden">
+    <section className="relative bg-gradient-to-r from-primary to-secondary text-white py-16 overflow-hidden">
       <style>{`
         @keyframes slideInLeft {
           from { opacity: 0; transform: translateX(-50px); }
@@ -26,12 +28,75 @@ export default function HeroSection({ onStartAnalysis, buttonText = "Start Your 
           0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
           50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.6); }
         }
+        @keyframes gradient-shift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        @keyframes float-up {
+          0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes float-up-delay-1 {
+          0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes float-up-delay-2 {
+          0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes float-up-delay-3 {
+          0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes float-up-delay-4 {
+          0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
         .animate-slide-left { animation: slideInLeft 0.8s ease-out; }
         .animate-slide-right { animation: slideInRight 0.8s ease-out; }
         .animate-fade-up { animation: fadeInUp 0.8s ease-out 0.2s both; }
         .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        .animate-gradient { 
+          background-size: 200% 200%;
+          animation: gradient-shift 8s ease infinite;
+        }
+        .floating-emoji {
+          position: absolute;
+          font-size: 2.5rem;
+          filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+        }
+        .emoji-1 { animation: float-up 6s linear infinite; left: 10%; }
+        .emoji-2 { animation: float-up 7s linear infinite; left: 25%; animation-delay: 1s; }
+        .emoji-3 { animation: float-up 8s linear infinite; left: 40%; animation-delay: 2s; }
+        .emoji-4 { animation: float-up 6.5s linear infinite; left: 55%; animation-delay: 0.5s; }
+        .emoji-5 { animation: float-up 7.5s linear infinite; left: 70%; animation-delay: 1.5s; }
+        .emoji-6 { animation: float-up 6s linear infinite; left: 85%; animation-delay: 2.5s; }
       `}</style>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      {/* Animated floating emojis */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="floating-emoji emoji-1">📚</div>
+        <div className="floating-emoji emoji-2">🎓</div>
+        <div className="floating-emoji emoji-3">🏆</div>
+        <div className="floating-emoji emoji-4">✨</div>
+        <div className="floating-emoji emoji-5">💡</div>
+        <div className="floating-emoji emoji-6">🌟</div>
+      </div>
+      
+      {/* Animated gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 animate-gradient pointer-events-none" style={{backgroundSize: '200% 200%'}}></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="animate-slide-left">
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">

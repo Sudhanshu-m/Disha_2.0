@@ -116,17 +116,6 @@ export default function HeroSection({ onStartAnalysis, buttonText = "Start Your 
               alt="Diverse group of students collaborating on laptops" 
               className="rounded-xl shadow-2xl w-full h-auto hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-all duration-300"
             />
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-lg p-4 shadow-lg animate-pulse-glow">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <Check className="w-6 h-6 text-secondary" />
-                </div>
-                <div>
-                  <p className="font-semibold text-slate-800">94% Success Rate</p>
-                  <p className="text-sm text-slate-600">Students find funding</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -10,18 +10,22 @@ export default function Navigation() {
     <nav className="bg-white shadow-sm border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="flex items-center space-x-3" data-testid="link-home">
-            <img src={dishaiLogo} alt="Disha AI Logo" className="w-14 h-14" />
-            <h1 className="text-2xl font-bold text-slate-800">Disha AI</h1>
+          <Link
+            href="/"
+            className="flex items-center space-x-3"
+            data-testid="link-home"
+          >
+            <img src={dishaiLogo} alt="Disha AI Logo" className="w-24 h-22" />
+            <h1 className="text-2xl font-bold text-slate-800">Disha_AI</h1>
           </Link>
 
           <div className="hidden md:flex items-center space-x-6">
             <Link
               href="/dashboard"
               className={`transition-colors ${
-                location === '/dashboard'
-                  ? 'text-primary'
-                  : 'text-slate-600 hover:text-primary'
+                location === "/dashboard"
+                  ? "text-primary"
+                  : "text-slate-600 hover:text-primary"
               }`}
               data-testid="link-dashboard"
             >
@@ -30,9 +34,9 @@ export default function Navigation() {
             <Link
               href="/matches"
               className={`transition-colors ${
-                location === '/matches'
-                  ? 'text-primary'
-                  : 'text-slate-600 hover:text-primary'
+                location === "/matches"
+                  ? "text-primary"
+                  : "text-slate-600 hover:text-primary"
               }`}
               data-testid="link-matches"
             >
@@ -41,9 +45,9 @@ export default function Navigation() {
             <Link
               href="/opportunities"
               className={`transition-colors ${
-                location === '/opportunities'
-                  ? 'text-primary'
-                  : 'text-slate-600 hover:text-primary'
+                location === "/opportunities"
+                  ? "text-primary"
+                  : "text-slate-600 hover:text-primary"
               }`}
               data-testid="link-opportunities"
             >
@@ -52,9 +56,9 @@ export default function Navigation() {
             <Link
               href="/profile"
               className={`transition-colors ${
-                location === '/profile'
-                  ? 'text-primary'
-                  : 'text-slate-600 hover:text-primary'
+                location === "/profile"
+                  ? "text-primary"
+                  : "text-slate-600 hover:text-primary"
               }`}
               data-testid="link-profile"
             >
@@ -63,9 +67,9 @@ export default function Navigation() {
             <Link
               href="/guidance"
               className={`transition-colors ${
-                location === '/guidance'
-                  ? 'text-primary'
-                  : 'text-slate-600 hover:text-primary'
+                location === "/guidance"
+                  ? "text-primary"
+                  : "text-slate-600 hover:text-primary"
               }`}
               data-testid="link-guidance"
             >
@@ -74,11 +78,20 @@ export default function Navigation() {
           </div>
 
           <div className="flex items-center space-x-3">
-            <Button variant="ghost" size="icon" data-testid="button-notifications">
+            <Button
+              variant="ghost"
+              size="icon"
+              data-testid="button-notifications"
+            >
               <Bell className="w-5 h-5" />
             </Button>
             <Link href="/profile">
-              <Button variant="ghost" size="icon" className="rounded-full" data-testid="avatar-user">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full"
+                data-testid="avatar-user"
+              >
                 <User className="w-5 h-5" />
               </Button>
             </Link>
